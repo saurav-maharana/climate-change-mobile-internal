@@ -1,4 +1,4 @@
-import 'package:flutter_template/secrets/app_secrets.dart';
+import 'package:flutter_template/secrets/app_secrets.skeleton.dart';
 
 class FlavorValues {
   final String apiBaseUrl;
