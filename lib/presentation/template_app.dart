@@ -1,25 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/flavors/flavor.dart';
-import 'package:flutter_template/flavors/flavor_config.dart';
-import 'package:flutter_template/navigation/base/app_router.dart';
 import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TemplateApp extends StatelessWidget {
-  TemplateApp({Key? key}) : super(key: key);
+  const TemplateApp({Key? key}) : super(key: key);
 
-  final AppRouter _appRouter = GetIt.I.get();
+  // final AppRouter _appRouter = GetIt.I.get();
 
   @override
   Widget build(BuildContext context) {
-    const enableDevicePreview =
-        String.fromEnvironment("enableDevicePreview") == "true";
-    final useDevicePreview = enableDevicePreview &&
-        kDebugMode &&
-        FlavorConfig.instance.flavor == Flavor.dev;
+    // const enableDevicePreview =
+    //     String.fromEnvironment("enableDevicePreview") == "true";
+    // final useDevicePreview = enableDevicePreview &&
+    //     kDebugMode &&
+    //     FlavorConfig.instance.flavor == Flavor.dev;
 
     // return ProviderScope(
     //   child: ThemeStateListener(
@@ -53,7 +48,7 @@ class TemplateApp extends StatelessWidget {
     // );
     return ProviderScope(
       child: MaterialApp(
-        home: OpenWeatherHome(),
+        home: const OpenWeatherHome(),
         theme: ThemeData(
           fontFamily: GoogleFonts.dmSans().fontFamily,
         ),
