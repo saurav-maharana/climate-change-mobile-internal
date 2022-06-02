@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution_info.dart';
@@ -46,9 +48,7 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const WeatherForecast()),
           (route) => false);
-    } else {
-      print("Null");
-    }
+    } else {}
   }
 
   @override
@@ -156,16 +156,6 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             selectedColor: Colors.black,
                             fillColor: Colors.white,
                             borderRadius: BorderRadius.circular(20.0),
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("English"),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("Hindi"),
-                              ),
-                            ],
                             onPressed: (int index) {
                               setState(() {
                                 for (int i = 0;
@@ -181,6 +171,16 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                               });
                             },
                             isSelected: isSelectedListLanguage,
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("English"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("Hindi"),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
@@ -189,16 +189,6 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             selectedColor: Colors.black,
                             fillColor: Colors.white,
                             borderRadius: BorderRadius.circular(30.0),
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("C"),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("F"),
-                              ),
-                            ],
                             onPressed: (int index) {
                               setState(() {
                                 for (int i = 0;
@@ -213,6 +203,16 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                               });
                             },
                             isSelected: isSelectedList,
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("C"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("F"),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -238,13 +238,7 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         height: 30.0,
                         child: Center(
                           child: Text(
-                            "City Name goes Here" +
-                                " as on " +
-                                DateTime.now().hour.toString() +
-                                ":" +
-                                DateTime.now().minute.toString() +
-                                " " +
-                                DateTime.now().timeZoneName,
+                            "City Name goes Here as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 17,
@@ -257,16 +251,18 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         margin: const EdgeInsets.only(
                           left: 30.0,
                         ),
-                        child: Text.rich(TextSpan(
+                        color: HexColor('#91B8DE'),
+                        elevation: 0.0,
+                        child: const Text.rich(TextSpan(
                           children: [
                             TextSpan(
                               text: "34",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
                               ),
                             ),
-                            const TextSpan(
+                            TextSpan(
                               text: "\u00b0C\n",
                               style: TextStyle(
                                 fontSize: 50,
@@ -275,15 +271,13 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             ),
                             TextSpan(
                               text: "Description Goes Here",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
                               ),
                             ),
                           ],
                         )),
-                        color: HexColor('#91B8DE'),
-                        elevation: 0.0,
                       ),
                       const Divider(),
                       Image.asset('assets/images/city.png'),
@@ -325,24 +319,24 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         left: 10.0,
                       ),
                       child: Row(
-                        children: [
+                        children: const [
                           Text.rich(TextSpan(
                             children: [
                               TextSpan(
                                 text: "40",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 50,
                                 ),
                               ),
-                              const TextSpan(
+                              TextSpan(
                                 text: "\u00b0C\n",
                                 style: TextStyle(
                                   fontSize: 50,
                                   color: Colors.black,
                                 ),
                               ),
-                              const TextSpan(
+                              TextSpan(
                                 text: "Feels Like",
                                 style: TextStyle(
                                   fontSize: 30,
@@ -367,16 +361,16 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("High/Low"),
+                            children: const [
+                              Text("High/Low"),
                               Text("34/33"),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Humidity"),
+                            children: const [
+                              Text("Humidity"),
                               Text(
                                 "455",
                               ),
@@ -385,24 +379,24 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Pressure"),
+                            children: const [
+                              Text("Pressure"),
                               Text("455"),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Visibility"),
+                            children: const [
+                              Text("Visibility"),
                               Text("123 mi"),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Wind"),
+                            children: const [
+                              Text("Wind"),
                               Text("230 mph"),
                             ],
                           ),
