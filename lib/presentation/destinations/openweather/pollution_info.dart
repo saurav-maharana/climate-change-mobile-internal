@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
@@ -145,12 +147,7 @@ class _PollutionScreenState extends State<PollutionScreen> {
                         height: 40,
                         child: Center(
                           child: Text(
-                            "${_controller.text} as on " +
-                                DateTime.now().hour.toString() +
-                                ":" +
-                                DateTime.now().minute.toString() +
-                                " " +
-                                DateTime.now().timeZoneName,
+                            "${_controller.text} as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 17,
@@ -163,6 +160,8 @@ class _PollutionScreenState extends State<PollutionScreen> {
                         margin: const EdgeInsets.only(
                           left: 30.0,
                         ),
+                        color: HexColor('#EF4444'),
+                        elevation: 0.0,
                         child: Text.rich(TextSpan(
                           children: [
                             const TextSpan(
@@ -188,8 +187,6 @@ class _PollutionScreenState extends State<PollutionScreen> {
                             ),
                           ],
                         )),
-                        color: HexColor('#EF4444'),
-                        elevation: 0.0,
                       ),
                       const Divider(),
                       Image.asset('assets/images/city.png'),
@@ -233,24 +230,24 @@ class _PollutionScreenState extends State<PollutionScreen> {
                           left: 10.0,
                         ),
                         child: Row(
-                          children: [
+                          children: const [
                             Text.rich(TextSpan(
                               children: [
                                 TextSpan(
                                   text: "34",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 50,
                                   ),
                                 ),
-                                const TextSpan(
+                                TextSpan(
                                   text: "\u00b0C\n",
                                   style: TextStyle(
                                     fontSize: 50,
                                     color: Colors.black,
                                   ),
                                 ),
-                                const TextSpan(
+                                TextSpan(
                                   text: "Feels Like",
                                   style: TextStyle(
                                     fontSize: 30,
@@ -275,16 +272,16 @@ class _PollutionScreenState extends State<PollutionScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("CO"),
+                              children: const [
+                                Text("CO"),
                                 Text("34"),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("NO"),
+                              children: const [
+                                Text("NO"),
                                 Text(
                                   "34",
                                 ),
@@ -293,32 +290,32 @@ class _PollutionScreenState extends State<PollutionScreen> {
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("NO2"),
+                              children: const [
+                                Text("NO2"),
                                 Text("34"),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("O3"),
+                              children: const [
+                                Text("O3"),
                                 Text("34"),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("SO2"),
+                              children: const [
+                                Text("SO2"),
                                 Text("34"),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("PM2_5"),
+                              children: const [
+                                Text("PM2_5"),
                                 Text(
                                   "34",
                                 ),
@@ -327,8 +324,8 @@ class _PollutionScreenState extends State<PollutionScreen> {
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("NH3"),
+                              children: const [
+                                Text("NH3"),
                                 Text(
                                   "34",
                                 ),
@@ -337,8 +334,8 @@ class _PollutionScreenState extends State<PollutionScreen> {
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("PM10"),
+                              children: const [
+                                Text("PM10"),
                                 Text(
                                   "34",
                                 ),
