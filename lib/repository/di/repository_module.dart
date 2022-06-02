@@ -3,6 +3,8 @@ import 'package:flutter_template/repository/date/date_repository.dart';
 import 'package:flutter_template/repository/date/date_repository_impl.dart';
 import 'package:flutter_template/repository/date/date_time_mapper.dart';
 import 'package:flutter_template/repository/date/time_mapper.dart';
+import 'package:flutter_template/repository/openweather/open_weather_repository.dart';
+import 'package:flutter_template/repository/openweather/open_weather_repository_impl.dart';
 import 'package:flutter_template/repository/preferences/preferences_repository.dart';
 import 'package:flutter_template/repository/preferences/preferences_repository_impl.dart';
 import 'package:flutter_template/repository/theme/theme_repository.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_template/repository/weather/local_city_mapper.dart';
 import 'package:flutter_template/repository/weather/local_weather_mapper.dart';
 import 'package:flutter_template/repository/weather/weather_repository.dart';
 import 'package:flutter_template/repository/weather/weather_repository_impl.dart';
+import 'package:flutter_template/services/openweather/remote/openweather_remote_service_impl.dart';
 import 'package:get_it/get_it.dart';
 
 extension RepositoryModule on GetIt {
@@ -58,5 +61,11 @@ extension RepositoryModule on GetIt {
     registerLazySingleton<ThemeRepository>(() => ThemeRepositoryImpl(
           preferencesRepo: get(),
         ));
+
+    registerLazySingleton<OpenWeatherRepository>(
+      () => OpenWeatherRepositoryImpl(
+        openWeatherRemoteService: get(),
+      ),
+    );
   }
 }
