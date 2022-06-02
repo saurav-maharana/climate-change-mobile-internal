@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution_info.dart';
@@ -143,12 +145,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                         height: 30.0,
                         child: Center(
                           child: Text(
-                            "${_controller.text} as on " +
-                                DateTime.now().hour.toString() +
-                                ":" +
-                                DateTime.now().minute.toString() +
-                                " " +
-                                DateTime.now().timeZoneName,
+                            "${_controller.text} as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 17,
@@ -163,9 +160,11 @@ class _WeatherForecastState extends State<WeatherForecast> {
                         margin: const EdgeInsets.only(
                           left: 30.0,
                         ),
-                        child: Text.rich(TextSpan(
+                        color: HexColor('#91B8DE'),
+                        elevation: 0.0,
+                        child: const Text.rich(TextSpan(
                           children: [
-                            const TextSpan(
+                            TextSpan(
                               text: "Current Temperature\n",
                               style: TextStyle(
                                 color: Colors.white,
@@ -174,12 +173,12 @@ class _WeatherForecastState extends State<WeatherForecast> {
                             ),
                             TextSpan(
                               text: "45",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
                               ),
                             ),
-                            const TextSpan(
+                            TextSpan(
                               text: "\u00b0C\n",
                               style: TextStyle(
                                 fontSize: 50,
@@ -188,8 +187,6 @@ class _WeatherForecastState extends State<WeatherForecast> {
                             ),
                           ],
                         )),
-                        color: HexColor('#91B8DE'),
-                        elevation: 0.0,
                       ),
                       const Divider(),
                     ],
@@ -237,7 +234,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   const SizedBox(
                                     height: 8.0,
                                   ),
-                                  Text("56"),
+                                  const Text("56"),
                                 ],
                               ),
                               const SizedBox(
@@ -249,7 +246,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   const SizedBox(
                                     height: 8.0,
                                   ),
-                                  Text("65"),
+                                  const Text("65"),
                                 ],
                               ),
                               const SizedBox(
@@ -261,7 +258,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   const SizedBox(
                                     height: 8.0,
                                   ),
-                                  Text("67"),
+                                  const Text("67"),
                                 ],
                               ),
                               const SizedBox(
@@ -273,7 +270,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
                                   const SizedBox(
                                     height: 8.0,
                                   ),
-                                  Text("76"),
+                                  const Text("76"),
                                 ],
                               ),
                               const SizedBox(
