@@ -1,3 +1,4 @@
+import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
 import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/repository/openweather/open_weather_repository.dart';
 import 'package:flutter_template/services/openweather/remote/openweather_remote_service.dart';
@@ -10,7 +11,7 @@ class OpenWeatherRepositoryImpl implements OpenWeatherRepository {
   });
 
   @override
-  Future searchCity(String searchCityName) async {
+  Future<CurrentWeather> searchCity(String searchCityName) async {
     logD("Search city Name: $searchCityName");
 
     final results =
