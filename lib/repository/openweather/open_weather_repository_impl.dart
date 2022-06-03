@@ -12,12 +12,8 @@ class OpenWeatherRepositoryImpl implements OpenWeatherRepository {
 
   @override
   Future<CurrentWeather> searchCity(String searchCityName) async {
-    logD("Search city Name: $searchCityName");
-
     final results =
         await openWeatherRemoteService.searchCity(cityName: searchCityName);
-
-    logD("Results from Repo : $results");
 
     return results;
   }
