@@ -1,6 +1,6 @@
 class CurrentWeatherOpenWeather {
-  String cityName;
-  int visibility;
+  final String cityName;
+  final int visibility;
   final TemperatureInfo temperatureInfo;
   final WeatherIconDesc weatherIconDesc;
   final WindSpeed windSpeed;
