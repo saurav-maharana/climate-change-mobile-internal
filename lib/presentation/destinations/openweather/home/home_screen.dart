@@ -1,65 +1,68 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
-import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_info.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class OpenWeatherHome extends StatefulWidget {
+class OpenWeatherHome extends ConsumerWidget {
   const OpenWeatherHome({Key? key}) : super(key: key);
 
+//   const OpenWeatherHome({Key? key}) : super(key: key);
+
+//   @override
+//   State<OpenWeatherHome> createState() => _OpenWeatherHomeState();
+// }
+
+// class _OpenWeatherHomeState extends State<OpenWeatherHome> {
+//   late List<bool> isSelectedList;
+//   late List<bool> isSelectedListLanguage;
+//   final TextEditingController _controller = TextEditingController();
+//   String? cityName;
+
+//   Future<void> showOptionsMenu(int hiveIndex) async {
+//     int? selected = await showMenu(
+//       position: const RelativeRect.fromLTRB(100, 00, 30, 30),
+//       context: context,
+//       items: [
+//         const PopupMenuItem(
+//           value: 0,
+//           child: Text("Home"),
+//         ),
+//         const PopupMenuItem(
+//           value: 1,
+//           child: Text("Pollution Info"),
+//         ),
+//         const PopupMenuItem(
+//           child: Text("Forecast"),
+//         ),
+//       ],
+//     );
+//     if (selected == 0) {
+//       Navigator.of(context).pushAndRemoveUntil(
+//           MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
+//           (route) => false);
+//     } else if (selected == 1) {
+//       Navigator.of(context).pushAndRemoveUntil(
+//           MaterialPageRoute(builder: (context) => const PollutionScreen()),
+//           (route) => false);
+//     } else if (selected == 3) {
+//       Navigator.of(context).pushAndRemoveUntil(
+//           MaterialPageRoute(builder: (context) => const WeatherForecast()),
+//           (route) => false);
+//     } else {}
+//   }
+
+//   @override
+//   void initState() {
+//     isSelectedList = [true, false];
+//     isSelectedListLanguage = [true, false];
+//     super.initState();
+//   }
+
   @override
-  State<OpenWeatherHome> createState() => _OpenWeatherHomeState();
-}
-
-class _OpenWeatherHomeState extends State<OpenWeatherHome> {
-  late List<bool> isSelectedList;
-  late List<bool> isSelectedListLanguage;
-  final TextEditingController _controller = TextEditingController();
-  String? cityName;
-
-  Future<void> showOptionsMenu(int hiveIndex) async {
-    int? selected = await showMenu(
-      position: const RelativeRect.fromLTRB(100, 00, 30, 30),
-      context: context,
-      items: [
-        const PopupMenuItem(
-          value: 0,
-          child: Text("Home"),
-        ),
-        const PopupMenuItem(
-          value: 1,
-          child: Text("Pollution Info"),
-        ),
-        const PopupMenuItem(
-          child: Text("Forecast"),
-        ),
-      ],
-    );
-    if (selected == 0) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
-          (route) => false);
-    } else if (selected == 1) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const PollutionScreen()),
-          (route) => false);
-    } else if (selected == 3) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const WeatherForecast()),
-          (route) => false);
-    } else {}
-  }
-
-  @override
-  void initState() {
-    isSelectedList = [true, false];
-    isSelectedListLanguage = [true, false];
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: HexColor('#E5E5E5'),
@@ -97,7 +100,15 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => showOptionsMenu(0),
+                            onTap: () {
+                              final viewModel =
+                                  ref.watch(openWeatherHomeViewModel.notifier);
+                              viewModel.onIntent(
+                                OpenWeatherHomeIntent.search(
+                                    searchTerm: 'Pune'),
+                              );
+                              // showOptionsMenu(0);
+                            },
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
                               child: const Icon(
@@ -116,7 +127,7 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                       child: TextField(
-                        controller: _controller,
+                        // controller: _controller,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
@@ -147,76 +158,76 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: ToggleButtons(
-                            selectedColor: Colors.black,
-                            fillColor: Colors.white,
-                            borderRadius: BorderRadius.circular(20.0),
-                            onPressed: (int index) {
-                              setState(() {
-                                for (int i = 0;
-                                    i < isSelectedListLanguage.length;
-                                    i++) {
-                                  if (i == index) {
-                                    isSelectedListLanguage[i] =
-                                        !isSelectedListLanguage[i];
-                                  } else {
-                                    isSelectedListLanguage[i] = false;
-                                  }
-                                }
-                              });
-                            },
-                            isSelected: isSelectedListLanguage,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("English"),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("Hindi"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: ToggleButtons(
-                            selectedColor: Colors.black,
-                            fillColor: Colors.white,
-                            borderRadius: BorderRadius.circular(30.0),
-                            onPressed: (int index) {
-                              setState(() {
-                                for (int i = 0;
-                                    i < isSelectedList.length;
-                                    i++) {
-                                  if (i == index) {
-                                    isSelectedList[i] = !isSelectedList[i];
-                                  } else {
-                                    isSelectedList[i] = false;
-                                  }
-                                }
-                              });
-                            },
-                            isSelected: isSelectedList,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("C"),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text("F"),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(15.0),
+                    //       child: ToggleButtons(
+                    //         selectedColor: Colors.black,
+                    //         fillColor: Colors.white,
+                    //         borderRadius: BorderRadius.circular(20.0),
+                    //         onPressed: (int index) {
+                    //           setState(() {
+                    //             for (int i = 0;
+                    //                 i < isSelectedListLanguage.length;
+                    //                 i++) {
+                    //               if (i == index) {
+                    //                 isSelectedListLanguage[i] =
+                    //                     !isSelectedListLanguage[i];
+                    //               } else {
+                    //                 isSelectedListLanguage[i] = false;
+                    //               }
+                    //             }
+                    //           });
+                    //         },
+                    //         isSelected: isSelectedListLanguage,
+                    //         children: const [
+                    //           Padding(
+                    //             padding: EdgeInsets.all(12.0),
+                    //             child: Text("English"),
+                    //           ),
+                    //           Padding(
+                    //             padding: EdgeInsets.all(12.0),
+                    //             child: Text("Hindi"),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.all(20.0),
+                    //       child: ToggleButtons(
+                    //         selectedColor: Colors.black,
+                    //         fillColor: Colors.white,
+                    //         borderRadius: BorderRadius.circular(30.0),
+                    //         onPressed: (int index) {
+                    //           setState(() {
+                    //             for (int i = 0;
+                    //                 i < isSelectedList.length;
+                    //                 i++) {
+                    //               if (i == index) {
+                    //                 isSelectedList[i] = !isSelectedList[i];
+                    //               } else {
+                    //                 isSelectedList[i] = false;
+                    //               }
+                    //             }
+                    //           });
+                    //         },
+                    //         isSelected: isSelectedList,
+                    //         children: const [
+                    //           Padding(
+                    //             padding: EdgeInsets.all(12.0),
+                    //             child: Text("C"),
+                    //           ),
+                    //           Padding(
+                    //             padding: EdgeInsets.all(12.0),
+                    //             child: Text("F"),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
