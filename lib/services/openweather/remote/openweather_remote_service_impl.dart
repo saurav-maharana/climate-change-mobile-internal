@@ -11,7 +11,7 @@ class OpenWeatherRemoteServiceImpl implements OpenWeatherRemoteService {
   });
 
   @override
-  Future searchCity({required String cityName}) async {
+  Future<CurrentWeatherOpenWeather> searchCity({required String cityName}) async {
     final response = await dio.get(
       'data/2.5/weather?q=$cityName&units=metric',
     );
