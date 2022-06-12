@@ -1,4 +1,5 @@
 import 'package:flutter_template/domain/openweather/current_weather_openweather_usecase.dart';
+import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/interactor/openweather/openweather_interactor.dart';
 
 class OpenWeatherInteractorImpl extends OpenWeatherInteractor {
@@ -6,12 +7,18 @@ class OpenWeatherInteractorImpl extends OpenWeatherInteractor {
 
   OpenWeatherInteractorImpl({
     required this.currentWeatherUseCase,
+    required this.listName,
   });
 
+  List listName;
+
   @override
-  Future search(String cityName) async {
+  Future<void> search(String cityName) async {
     final searchResults = await currentWeatherUseCase(param: cityName);
 
-    return searchResults;
+   searchResults.when(
+     success: (data) => listName.add(data),
+     error: (e) => "SearchCityInteractorImpl: search for $cityName returned error ${e?.toString()}",
+   );
   }
 }

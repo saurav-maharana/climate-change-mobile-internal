@@ -1,3 +1,3 @@
 abstract class OpenWeatherInteractor {
-  Future search(String cityName);
+  Future<void> search(String cityName);
 }
