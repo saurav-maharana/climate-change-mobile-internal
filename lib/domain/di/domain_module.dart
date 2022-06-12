@@ -2,6 +2,8 @@ import 'package:flutter_template/domain/datetime/date_in_millis_use_case.dart';
 import 'package:flutter_template/domain/datetime/date_in_millis_use_case_impl.dart';
 import 'package:flutter_template/domain/datetime/format_date_use_case.dart';
 import 'package:flutter_template/domain/datetime/format_date_use_case_impl.dart';
+import 'package:flutter_template/domain/openweather/current_weather_openweather_use_case_impl.dart';
+import 'package:flutter_template/domain/openweather/current_weather_openweather_usecase.dart';
 import 'package:flutter_template/domain/theme/get_is_dynamic_theme_enabled.dart';
 import 'package:flutter_template/domain/theme/get_is_dynamic_theme_enabled_impl.dart';
 import 'package:flutter_template/domain/theme/get_theme_mode_use_case.dart';
@@ -90,5 +92,9 @@ extension DomainModule on GetIt {
         () => GetIsDynamicThemeEnabledImpl(
               themeRepository: get(),
             ));
+
+    registerFactory<CurrentWeatherUseCase>(() => CurrentWeatherUseCaseImpl(
+          openWeatherRepository: get(),
+        ));
   }
 }
