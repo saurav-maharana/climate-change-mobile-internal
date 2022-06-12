@@ -12,7 +12,7 @@ class OWHome extends StatelessWidget {
     return BasePage<OpenWeatherHomeScreen, OpenWeatherHomeScreenState,
         OpenWeatherViewModel>(
       viewModelProvider: openWeatherHomeViewModel,
-      body: Text("Something"),
+      body: const Text("Something"),
     );
   }
 }

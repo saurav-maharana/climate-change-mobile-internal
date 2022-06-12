@@ -24,7 +24,5 @@ class OpenWeatherHomeScreen extends Screen {
   const OpenWeatherHomeScreen() : super._();
 
   @override
-  // TODO: implement path
   String get path => Routes.home;
-
 }

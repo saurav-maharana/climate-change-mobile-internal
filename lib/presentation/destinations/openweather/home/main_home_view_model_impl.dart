@@ -13,8 +13,8 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
 
   @override
   onInit() {
-    final result = openWeatherInteractor.search('Pune');
-    print(result);
+    openWeatherInteractor.search('Pune');
+    // print(result);
   }
 
   static OpenWeatherHomeScreenState get _initialState =>

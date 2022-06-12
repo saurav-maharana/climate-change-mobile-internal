@@ -35,7 +35,7 @@ class _WeatherForecastState extends State<WeatherForecast> {
     );
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
+          MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
           (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
