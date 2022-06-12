@@ -64,6 +64,7 @@ extension RepositoryModule on GetIt {
     registerLazySingleton<OpenWeatherRepository>(
       () => OpenWeatherRepositoryImpl(
         openWeatherRemoteService: get(),
+        domainOpenWeatherMapper: get(),
       ),
     );
   }
