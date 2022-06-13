@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
 import 'package:flutter_template/presentation/entity/base/ui_toolbar.dart';
 import 'package:flutter_template/presentation/entity/screen/screen_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -11,7 +10,6 @@ class OpenWeatherHomeScreenState
     with _$OpenWeatherHomeScreenState
     implements ScreenState {
   factory OpenWeatherHomeScreenState({
-    required StreamController currentWeatherValue,
     required UIToolbar toolbar,
     required bool showLoading,
   }) = _OpenWeatherHomeScreenState;
