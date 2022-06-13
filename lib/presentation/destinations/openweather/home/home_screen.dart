@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
+import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
@@ -11,8 +13,8 @@ import 'package:hexcolor/hexcolor.dart';
 class OpenWeatherHome extends ConsumerWidget {
   OpenWeatherHome({Key? key}) : super(key: key);
 
-  late List<bool> isSelectedList;
-  late List<bool> isSelectedListLanguage;
+  List<bool> isSelectedList = [true, false];
+  List<bool> isSelectedListLanguage = [true, false];
   final TextEditingController _controller = TextEditingController();
   String? cityName;
 
@@ -37,20 +39,22 @@ class OpenWeatherHome extends ConsumerWidget {
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => OpenWeatherHome()),
-          (route) => false);
+              (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const PollutionScreen()),
-          (route) => false);
+              (route) => false);
     } else if (selected == 3) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const WeatherForecast()),
-          (route) => false);
+              (route) => false);
     } else {}
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref
+        .watch(openWeatherHomeViewModel.notifier);
     return SafeArea(
       child: Scaffold(
         backgroundColor: HexColor('#E5E5E5'),
@@ -89,13 +93,7 @@ class OpenWeatherHome extends ConsumerWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              final viewModel =
-                                  ref.watch(openWeatherHomeViewModel.notifier);
-                              viewModel.onIntent(
-                                OpenWeatherHomeIntent.search(
-                                    searchTerm: 'Pune'),
-                              );
-                              // showOptionsMenu(0);
+                              showOptionsMenu(context, 0);
                             },
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
@@ -119,7 +117,13 @@ class OpenWeatherHome extends ConsumerWidget {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              try {} catch (e) {
+                              try {
+
+                                viewModel.onIntent(
+                                  OpenWeatherHomeIntent.search(
+                                      searchTerm: _controller.text),
+                                );
+                              } catch (e) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
                                   content: const Text(
@@ -146,76 +150,69 @@ class OpenWeatherHome extends ConsumerWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Padding(
-                    //       padding: const EdgeInsets.all(15.0),
-                    //       child: ToggleButtons(
-                    //         selectedColor: Colors.black,
-                    //         fillColor: Colors.white,
-                    //         borderRadius: BorderRadius.circular(20.0),
-                    //         onPressed: (int index) {
-                    //           setState(() {
-                    //             for (int i = 0;
-                    //                 i < isSelectedListLanguage.length;
-                    //                 i++) {
-                    //               if (i == index) {
-                    //                 isSelectedListLanguage[i] =
-                    //                     !isSelectedListLanguage[i];
-                    //               } else {
-                    //                 isSelectedListLanguage[i] = false;
-                    //               }
-                    //             }
-                    //           });
-                    //         },
-                    //         isSelected: isSelectedListLanguage,
-                    //         children: const [
-                    //           Padding(
-                    //             padding: EdgeInsets.all(12.0),
-                    //             child: Text("English"),
-                    //           ),
-                    //           Padding(
-                    //             padding: EdgeInsets.all(12.0),
-                    //             child: Text("Hindi"),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     Padding(
-                    //       padding: const EdgeInsets.all(20.0),
-                    //       child: ToggleButtons(
-                    //         selectedColor: Colors.black,
-                    //         fillColor: Colors.white,
-                    //         borderRadius: BorderRadius.circular(30.0),
-                    //         onPressed: (int index) {
-                    //           setState(() {
-                    //             for (int i = 0;
-                    //                 i < isSelectedList.length;
-                    //                 i++) {
-                    //               if (i == index) {
-                    //                 isSelectedList[i] = !isSelectedList[i];
-                    //               } else {
-                    //                 isSelectedList[i] = false;
-                    //               }
-                    //             }
-                    //           });
-                    //         },
-                    //         isSelected: isSelectedList,
-                    //         children: const [
-                    //           Padding(
-                    //             padding: EdgeInsets.all(12.0),
-                    //             child: Text("C"),
-                    //           ),
-                    //           Padding(
-                    //             padding: EdgeInsets.all(12.0),
-                    //             child: Text("F"),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: ToggleButtons(
+                            selectedColor: Colors.black,
+                            fillColor: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            onPressed: (int index) {
+                              for (int i = 0;
+                                  i < isSelectedListLanguage.length;
+                                  i++) {
+                                if (i == index) {
+                                  isSelectedListLanguage[i] = true;
+                                } else {
+                                  isSelectedListLanguage[i] = false;
+                                }
+                              }
+                            },
+                            isSelected: isSelectedListLanguage,
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("English"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("Hindi"),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: ToggleButtons(
+                            selectedColor: Colors.black,
+                            fillColor: Colors.white,
+                            borderRadius: BorderRadius.circular(30.0),
+                            onPressed: (int index) {
+                              for (int i = 0; i < isSelectedList.length; i++) {
+                                if (i == index) {
+                                  isSelectedList[i] = !isSelectedList[i];
+                                } else {
+                                  isSelectedList[i] = false;
+                                }
+                              }
+                            },
+                            isSelected: [true, false],
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("C"),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Text("F"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
