@@ -1,14 +1,14 @@
 class CurrentWeather {
   final String cityName;
   final String description;
-  final double currentTemperature;
-  final double feelsLike;
-  final double maximumTemperature;
-  final double minimumTemperature;
-  final int presssure;
-  final int humidity;
-  final int visibility;
-  final double windSpeed;
+  final num currentTemperature;
+  final num feelsLike;
+  final num maximumTemperature;
+  final num minimumTemperature;
+  final num presssure;
+  final num humidity;
+  final num visibility;
+  final num windSpeed;
 
   CurrentWeather({
     required this.cityName,
