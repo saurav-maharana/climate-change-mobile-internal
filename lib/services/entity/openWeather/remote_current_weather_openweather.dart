@@ -1,6 +1,6 @@
 class CurrentWeatherOpenWeather {
   final String cityName;
-  final int visibility;
+  final num visibility;
   final TemperatureInfo temperatureInfo;
   final WeatherIconDesc weatherIconDesc;
   final WindSpeed windSpeed;
@@ -37,12 +37,12 @@ class CurrentWeatherOpenWeather {
 }
 
 class TemperatureInfo {
-  final double temperature;
-  final double feelsLike;
-  final double maxTemp;
-  final double minTemp;
-  final int pressure;
-  final int humidity;
+  final num temperature;
+  final num feelsLike;
+  final num maxTemp;
+  final num minTemp;
+  final num pressure;
+  final num humidity;
 
   TemperatureInfo({
     required this.temperature,
@@ -90,7 +90,7 @@ class WeatherIconDesc {
 }
 
 class WindSpeed {
-  final double windSpeed;
+  final num windSpeed;
 
   WindSpeed({
     required this.windSpeed,
