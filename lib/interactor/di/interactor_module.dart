@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_template/interactor/openweather/openweather_interactor.dart';
 import 'package:flutter_template/interactor/openweather/openweather_interactor_impl.dart';
 import 'package:flutter_template/interactor/theme/theme_interactor.dart';
