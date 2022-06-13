@@ -56,7 +56,6 @@ extension InteractorModule on GetIt {
     registerFactory<OpenWeatherInteractor>(
       () => OpenWeatherInteractorImpl(
         currentWeatherUseCase: get(),
-        cityCurrentWeather: StreamController.broadcast(),
       ),
     );
   }
