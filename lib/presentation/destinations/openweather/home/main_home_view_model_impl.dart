@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_state.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
 import 'package:flutter_template/presentation/entity/base/ui_toolbar.dart';
+import '../../../../domain/entity/openweather/current_weather.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
 
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
@@ -13,12 +16,23 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
 
   @override
   onInit() {
-    openWeatherInteractor.search('Pune');
+    CurrentWeather(
+        cityName: "",
+        description: "",
+        currentTemperature: 0.0,
+        feelsLike: 0.0,
+        maximumTemperature: 0.0,
+        minimumTemperature: 0.0,
+        presssure: 0.0,
+        humidity: 0.0,
+        visibility: 0.0,
+        windSpeed: 0.0);
+    openWeatherInteractor.search('');
   }
 
   static OpenWeatherHomeScreenState get _initialState =>
       OpenWeatherHomeScreenState(
-          currentWeatherValue: List.empty(),
+          currentWeatherValue: StreamController.broadcast(),
           toolbar: UIToolbar(
             title: "",
             hasBackButton: false,
