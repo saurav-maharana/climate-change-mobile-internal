@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
-import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
@@ -39,22 +37,21 @@ class OpenWeatherHome extends ConsumerWidget {
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => OpenWeatherHome()),
-              (route) => false);
+          (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const PollutionScreen()),
-              (route) => false);
+          (route) => false);
     } else if (selected == 3) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const WeatherForecast()),
-              (route) => false);
+          (route) => false);
     } else {}
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref
-        .watch(openWeatherHomeViewModel.notifier);
+    final viewModel = ref.watch(openWeatherHomeViewModel.notifier);
     return SafeArea(
       child: Scaffold(
         backgroundColor: HexColor('#E5E5E5'),
@@ -118,7 +115,6 @@ class OpenWeatherHome extends ConsumerWidget {
                           suffixIcon: IconButton(
                             onPressed: () async {
                               try {
-
                                 viewModel.onIntent(
                                   OpenWeatherHomeIntent.search(
                                       searchTerm: _controller.text),
@@ -198,7 +194,7 @@ class OpenWeatherHome extends ConsumerWidget {
                                 }
                               }
                             },
-                            isSelected: [true, false],
+                            isSelected: const [true, false],
                             children: const [
                               Padding(
                                 padding: EdgeInsets.all(12.0),
