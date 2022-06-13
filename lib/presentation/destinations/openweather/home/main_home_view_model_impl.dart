@@ -1,4 +1,3 @@
-import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_state.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
@@ -30,7 +29,7 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
     intent.when(search: (cityName) {
       final results = openWeatherInteractor.search(cityName);
 
-      setState((state) => state.copyWith());
+      logD("Results:: $results"); // Returns Future<void>
     });
   }
 }
