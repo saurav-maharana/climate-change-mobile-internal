@@ -6,5 +6,5 @@ part 'home_screen_intent.freezed.dart';
 @freezed
 class OpenWeatherHomeIntent with _$OpenWeatherHomeIntent implements BaseIntent {
   factory OpenWeatherHomeIntent.search({required String searchTerm}) =
-  _OpenWeatherHomeIntent_Search;
+      _OpenWeatherHomeIntent_Search;
 }
