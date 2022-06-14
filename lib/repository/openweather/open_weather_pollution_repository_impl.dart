@@ -1,7 +1,6 @@
 import 'package:flutter_template/domain/entity/openweather/pollution_info.dart';
 import 'package:flutter_template/repository/openweather/domain_openweather_pollution_mapper.dart';
 import 'package:flutter_template/repository/openweather/open_weather_pollution_repository.dart';
-import 'package:flutter_template/services/entity/openWeather/remote_pollution_current_weather.dart';
 import 'package:flutter_template/services/openweather/remote/open_weather_pollution_remote_service.dart';
 
 class OpenWeatherPollutionRepositoryImpl
