@@ -13,8 +13,7 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   }) : super(_initialState);
 
   @override
-  onInit() {
-  }
+  onInit() {}
 
   static OpenWeatherHomeScreenState get _initialState =>
       OpenWeatherHomeScreenState(
