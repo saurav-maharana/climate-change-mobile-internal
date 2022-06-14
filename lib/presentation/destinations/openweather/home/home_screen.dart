@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
-import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_info.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class OpenWeatherHome extends ConsumerWidget {
