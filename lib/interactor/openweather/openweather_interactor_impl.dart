@@ -6,22 +6,19 @@ import 'package:flutter_template/foundation/extensions/object_ext.dart';
 
 class OpenWeatherInteractorImpl extends OpenWeatherInteractor {
   final CurrentWeatherUseCase currentWeatherUseCase;
-  final List<CurrentWeather> _currentWeatherList = [];
 
   OpenWeatherInteractorImpl({
     required this.currentWeatherUseCase,
   });
 
   @override
-  Future<void> search(String cityName) async {
+  Future<CurrentWeather> search(String cityName) async {
     final searchResults = await currentWeatherUseCase(param: cityName);
-    searchResults.when(
+    return searchResults.when(
       success: (data) {
-        logD('Data :: $data'); // returns instance of CurrentWeather
-        _currentWeatherList.add(data);
-        logD('$_currentWeatherList'); // returns List<CurrentWeather>
+        return data;
       },
-      error: (e) => "$e",
+      error: (e) => "$e" as CurrentWeather,
     );
   }
 }
