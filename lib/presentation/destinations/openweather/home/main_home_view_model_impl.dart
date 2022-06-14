@@ -4,7 +4,6 @@ import 'package:flutter_template/presentation/destinations/openweather/home/home
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
 import 'package:flutter_template/presentation/entity/base/ui_toolbar.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
-import 'package:flutter_template/foundation/extensions/object_ext.dart';
 
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   final OpenWeatherInteractor openWeatherInteractor;
