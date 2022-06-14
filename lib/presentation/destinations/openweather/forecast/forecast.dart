@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
-import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_info.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class WeatherForecast extends StatefulWidget {
