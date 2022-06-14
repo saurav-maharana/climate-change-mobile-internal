@@ -12,9 +12,9 @@ class OpenWeatherPollutionUsecaseImpl extends OpenWeatherPollutionUseCase {
   @override
   Future<OpenWeatherPollutionInfo> callInternal(String param) async {
     return await openWeatherPollutionRepository.getPollutionInfo(
-      // ignore: todo
       "23",
       "12",
+      // ignore: todo
     ); // TODO: Remove the hardcoded values
   }
 }
