@@ -115,7 +115,16 @@ class OpenWeatherHome extends ConsumerWidget {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              viewModel.onIntent(OpenWeatherHomeIntent.search(searchTerm: _controller.text));
+                              try {
+                                viewModel.onIntent(OpenWeatherHomeIntent.search(
+                                    searchTerm: _controller.text));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("$e"),
+                                  ),
+                                );
+                              }
                             },
                             icon: const Icon(Icons.search),
                           ),
@@ -234,8 +243,8 @@ class OpenWeatherHome extends ConsumerWidget {
                         child: Text.rich(TextSpan(
                           children: [
                             TextSpan(
-                              text:
-                                  newVM.currentWeather.currentTemperature.toString(),
+                              text: newVM.currentWeather.currentTemperature
+                                  .toString(),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
