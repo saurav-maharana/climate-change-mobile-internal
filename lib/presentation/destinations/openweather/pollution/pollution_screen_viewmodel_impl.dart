@@ -7,6 +7,8 @@ import 'package:flutter_template/presentation/entity/base/ui_toolbar.dart';
 
 class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
   OpenWeatherPollutionInteractor openWeatherPollutionInteractor;
+  double latitude = 0.0;
+  double longitude = 0.0;
 
   PollutionScreenViewModelImpl({
     required this.openWeatherPollutionInteractor,
@@ -35,5 +37,12 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
       );
 
   @override
-  void onIntent(PollutionScreenIntent intent) {}
+  void onIntent(PollutionScreenIntent intent) {
+    intent.when(search: (String latitude, String longitude) async {
+      final result = await openWeatherPollutionInteractor.getPollutionInfo(
+          latitude, longitude);
+
+      setState((state) => state.copyWith(openWeatherPollutionInfo: result));
+    });
+  }
 }
