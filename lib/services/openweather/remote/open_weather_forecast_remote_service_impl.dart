@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
 import 'package:flutter_template/services/entity/openWeather/remote_forecast_openweather.dart';
 import 'package:flutter_template/services/openweather/remote/open_weather_forecast_remote_service.dart';
 
