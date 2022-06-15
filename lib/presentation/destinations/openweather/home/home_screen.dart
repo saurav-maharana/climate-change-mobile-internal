@@ -40,7 +40,7 @@ class OpenWeatherHome extends ConsumerWidget {
           (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const PollutionScreen()),
+          MaterialPageRoute(builder: (context) => PollutionScreen()),
           (route) => false);
     } else if (selected == 3) {
       Navigator.of(context).pushAndRemoveUntil(
