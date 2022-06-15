@@ -6,7 +6,6 @@ import 'package:flutter_template/presentation/destinations/openweather/pollution
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel.dart';
 import 'package:flutter_template/presentation/entity/base/ui_toolbar.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:flutter_template/foundation/extensions/object_ext.dart';
 
 class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
   OpenWeatherPollutionInteractor openWeatherPollutionInteractor;
@@ -19,7 +18,6 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
 
   @override
   onInit() async {
-    logD('CityName :: $cityName');
     await GeocodingPlatform.instance
         .locationFromAddress(cityName)
         .then((value) {
