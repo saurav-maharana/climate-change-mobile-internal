@@ -2,6 +2,8 @@ import 'package:flutter_template/presentation/base/theme/theme_view_model.dart';
 import 'package:flutter_template/presentation/base/theme/theme_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel_impl.dart';
 import 'package:flutter_template/presentation/destinations/weather/home/home_view_model.dart';
 import 'package:flutter_template/presentation/destinations/weather/home/home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/weather/search/search_view_model.dart';
@@ -35,5 +37,10 @@ extension PresentationModule on GetIt {
     registerFactory<OpenWeatherViewModel>(() => OpenWeatherViewModelImpl(
           openWeatherInteractor: get(),
         ));
+
+    registerFactory<PollutionScreenViewModel>(
+        () => PollutionScreenViewModelImpl(
+              openWeatherPollutionInteractor: get(),
+            ));
   }
 }
