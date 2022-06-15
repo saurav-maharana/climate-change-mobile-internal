@@ -48,7 +48,7 @@ class PollutionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PollutionScreenViewModelUse =
+    final pollutionScreenViewModelUse =
         ref.watch(pollutionScreenViewModel.notifier);
     final newPollutionScreenViewModel = ref.watch(pollutionScreenViewModel);
     return SafeArea(
@@ -116,7 +116,7 @@ class PollutionScreen extends ConsumerWidget {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              PollutionScreenViewModelUse.onIntent(
+                              pollutionScreenViewModelUse.onIntent(
                                 PollutionScreenIntent.search(
                                     cityName: _controller.text),
                               );
@@ -259,7 +259,7 @@ class PollutionScreen extends ConsumerWidget {
                                 ),
                                 const TextSpan(
                                   text: "Feels Like",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 30,
                                     color: Colors.black,
                                   ),
