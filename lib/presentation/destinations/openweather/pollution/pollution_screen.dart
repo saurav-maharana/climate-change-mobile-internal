@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -32,14 +33,14 @@ class PollutionScreen extends ConsumerWidget {
       ],
     );
     if (selected == 0) {
-      null;
-    } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => PollutionScreen()),
+          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
           (route) => false);
+    } else if (selected == 1) {
+      null;
     } else if (selected == 2) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const WeatherForecast()),
+          MaterialPageRoute(builder: (context) => WeatherForecast()),
           (route) => false);
     } else {
       null;
@@ -96,9 +97,9 @@ class PollutionScreen extends ConsumerWidget {
                             onTap: () => showOptionsMenu(context, 0),
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
-                              child: const Icon(
-                                Icons.menu,
-                                color: Colors.black,
+                              child: const ImageIcon(
+                                AssetImage('assets/images/menu.png'),
+                                color: Colors.white,
                                 size: 30,
                               ),
                             ),
@@ -140,7 +141,6 @@ class PollutionScreen extends ConsumerWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(8.0),
-                color: Colors.white,
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13.0)),
@@ -148,7 +148,13 @@ class PollutionScreen extends ConsumerWidget {
                   child: Column(
                     children: [
                       Container(
-                        color: const Color.fromRGBO(0, 0, 0, 0.2),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(13.0),
+                            topRight: Radius.circular(13.0),
+                          ),
+                          color: Color.fromRGBO(0, 0, 0, 0.2),
+                        ),
                         width: double.infinity,
                         height: 40,
                         child: Center(
@@ -180,24 +186,21 @@ class PollutionScreen extends ConsumerWidget {
                             TextSpan(
                               text:
                                   "${newPollutionScreenViewModel.openWeatherPollutionInfo.airQualityIndex}"
-                                      .padLeft(6),
+                                      .padLeft(8),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: "\u00b0C\n",
-                              style: TextStyle(
-                                fontSize: 50,
-                                color: Colors.white,
                               ),
                             ),
                           ],
                         )),
                       ),
                       const Divider(),
-                      Image.asset('assets/images/city.png'),
+                      ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(13.0),
+                              bottomRight: Radius.circular(13.0)),
+                          child: Image.asset('assets/images/city.png')),
                     ],
                   ),
                 ),
@@ -251,14 +254,7 @@ class PollutionScreen extends ConsumerWidget {
                                   ),
                                 ),
                                 const TextSpan(
-                                  text: "\u00b0C\n",
-                                  style: TextStyle(
-                                    fontSize: 50,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const TextSpan(
-                                  text: "Feels Like",
+                                  text: "\nFeels Like",
                                   style: TextStyle(
                                     fontSize: 30,
                                     color: Colors.black,
