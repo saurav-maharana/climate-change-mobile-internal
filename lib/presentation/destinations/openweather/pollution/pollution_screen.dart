@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
-import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel.dart';
 import 'package:hexcolor/hexcolor.dart';
