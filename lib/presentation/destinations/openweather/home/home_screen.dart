@@ -20,33 +20,34 @@ class OpenWeatherHome extends ConsumerWidget {
     int? selected = await showMenu(
       position: const RelativeRect.fromLTRB(100, 00, 30, 30),
       context: context,
-      items: [
-        const PopupMenuItem(
+      items: const [
+        PopupMenuItem(
           value: 0,
           child: Text("Home"),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
           value: 1,
           child: Text("Pollution Info"),
         ),
-        const PopupMenuItem(
+        PopupMenuItem(
+          value: 2,
           child: Text("Forecast"),
         ),
       ],
     );
     if (selected == 0) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
-          (route) => false);
+      null;
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => PollutionScreen()),
           (route) => false);
-    } else if (selected == 3) {
+    } else if (selected == 2) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const WeatherForecast()),
           (route) => false);
-    } else {}
+    } else {
+      null;
+    }
   }
 
   @override
