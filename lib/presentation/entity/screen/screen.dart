@@ -33,3 +33,10 @@ class OpenWeatherPollutionScreen extends Screen {
   @override
   String get path => Routes.home;
 }
+
+class OpenWeatherForecastScreen extends Screen {
+  const OpenWeatherForecastScreen() : super._();
+
+  @override
+  String get path => Routes.home;
+}
