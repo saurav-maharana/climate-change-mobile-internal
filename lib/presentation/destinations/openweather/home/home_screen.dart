@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
@@ -43,7 +43,7 @@ class OpenWeatherHome extends ConsumerWidget {
           (route) => false);
     } else if (selected == 2) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const WeatherForecast()),
+          MaterialPageRoute(builder: (context) => WeatherForecast()),
           (route) => false);
     } else {
       null;
@@ -91,13 +91,11 @@ class OpenWeatherHome extends ConsumerWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              showOptionsMenu(context, 0);
-                            },
+                            onTap: () => showOptionsMenu(context, 0),
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
-                              child: const Icon(
-                                Icons.menu,
+                              child: const ImageIcon(
+                                AssetImage('assets/images/menu.png'),
                                 color: Colors.white,
                                 size: 30,
                               ),
@@ -213,7 +211,6 @@ class OpenWeatherHome extends ConsumerWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(8.0),
-                color: Colors.white,
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13.0)),
@@ -221,7 +218,13 @@ class OpenWeatherHome extends ConsumerWidget {
                   child: Column(
                     children: [
                       Container(
-                        color: const Color.fromRGBO(0, 0, 0, 0.2),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(13.0),
+                            topRight: Radius.circular(13.0),
+                          ),
+                          color: Color.fromRGBO(0, 0, 0, 0.2),
+                        ),
                         width: double.infinity,
                         height: 30.0,
                         child: Center(
@@ -269,7 +272,11 @@ class OpenWeatherHome extends ConsumerWidget {
                         )),
                       ),
                       const Divider(),
-                      Image.asset('assets/images/city.png'),
+                      ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(13.0),
+                              bottomRight: Radius.circular(13.0)),
+                          child: Image.asset('assets/images/city.png')),
                     ],
                   ),
                 ),
@@ -277,129 +284,134 @@ class OpenWeatherHome extends ConsumerWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                elevation: 1.0,
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 10.0,
-                        left: 10.0,
-                      ),
-                      child: Row(
-                        children: const [
-                          Text(
-                            "Weather Today",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 1.0,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 10.0,
+                          left: 10.0,
+                        ),
+                        child: Row(
+                          children: const [
+                            Text(
+                              "Weather Today",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.only(
-                        left: 10.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Text.rich(TextSpan(
-                            children: [
-                              TextSpan(
-                                text: newVM.currentWeather.feelsLike.toString(),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 50,
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.only(
+                          left: 10.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Text.rich(TextSpan(
+                              children: [
+                                TextSpan(
+                                  text:
+                                      newVM.currentWeather.feelsLike.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 50,
+                                  ),
                                 ),
-                              ),
-                              const TextSpan(
-                                text: "\u00b0C\n",
-                                style: TextStyle(
-                                  fontSize: 50,
-                                  color: Colors.black,
+                                const TextSpan(
+                                  text: "\u00b0C\n",
+                                  style: TextStyle(
+                                    fontSize: 50,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              const TextSpan(
-                                text: "Feels Like",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.black,
+                                const TextSpan(
+                                  text: "Feels Like",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )),
-                        ],
+                              ],
+                            )),
+                          ],
+                        ),
                       ),
-                    ),
-                    const Divider(),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        left: 10.0,
-                        right: 10.0,
+                      const Divider(),
+                      const SizedBox(
+                        height: 5.0,
                       ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("High/Low"),
-                              Text(
-                                  "${newVM.currentWeather.maximumTemperature}/${newVM.currentWeather.minimumTemperature}"),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Humidity"),
-                              Text(newVM.currentWeather.humidity.toString()),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Pressure"),
-                              Text(newVM.currentWeather.presssure.toString()),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Visibility"),
-                              Text(newVM.currentWeather.visibility.toString()),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Wind"),
-                              Text("${newVM.currentWeather.windSpeed}mph"),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            children: [
-                              Container(
-                                height: 100.0,
-                              ),
-                            ],
-                          ),
-                        ],
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 10.0,
+                          right: 10.0,
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("High/Low"),
+                                Text(
+                                    "${newVM.currentWeather.maximumTemperature}/${newVM.currentWeather.minimumTemperature}"),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Humidity"),
+                                Text(newVM.currentWeather.humidity.toString()),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Pressure"),
+                                Text(newVM.currentWeather.presssure.toString()),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Visibility"),
+                                Text(
+                                    newVM.currentWeather.visibility.toString()),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Wind"),
+                                Text("${newVM.currentWeather.windSpeed}mph"),
+                              ],
+                            ),
+                            const Divider(),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 100.0,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
