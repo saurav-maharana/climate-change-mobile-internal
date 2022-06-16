@@ -1,3 +1,5 @@
+import 'package:flutter_template/interactor/openweather/openweather_forecast_interactor.dart';
+import 'package:flutter_template/interactor/openweather/openweather_forecast_interactor_impl.dart';
 import 'package:flutter_template/interactor/openweather/openweather_interactor.dart';
 import 'package:flutter_template/interactor/openweather/openweather_interactor_impl.dart';
 import 'package:flutter_template/interactor/openweather/openweather_pollution_interactor.dart';
@@ -62,6 +64,12 @@ extension InteractorModule on GetIt {
     registerFactory<OpenWeatherPollutionInteractor>(
       () => OpenWeatherPollutionInteractorImpl(
         openWeatherPollutionUseCase: get(),
+      ),
+    );
+
+    registerFactory<OpenWeatherForecastInteractor>(
+      () => OpenWeatherForecastInteractorImpl(
+        openWeatherForecastUseCase: get(),
       ),
     );
   }
