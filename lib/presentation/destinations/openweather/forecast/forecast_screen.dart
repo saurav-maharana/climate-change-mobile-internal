@@ -177,9 +177,11 @@ class WeatherForecast extends ConsumerWidget {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
+                              globalCityName = _controller.text;
                               forecastScreenViewModel.onIntent(
-                                  OpenWeatherForecastIntent.search(
-                                      latitude: '', longitude: ''));
+                                OpenWeatherForecastIntent.search(
+                                    cityName: globalCityName),
+                              );
                             },
                             icon: const Icon(Icons.search),
                           ),
