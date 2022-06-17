@@ -51,10 +51,17 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
       );
 
   @override
-  void onIntent(PollutionScreenIntent intent) {
-    intent.when(search: (String latitude, String longitude) async {
+  void onIntent(PollutionScreenIntent intent) async {
+    await GeocodingPlatform.instance
+        .locationFromAddress(globalCityName)
+        .then((value) {
+      latitude = value[0].latitude;
+      longitude = value[0].longitude;
+    });
+
+    intent.when(searchUsingCityName: (String cityName) async {
       final result = await openWeatherPollutionInteractor.getPollutionInfo(
-          latitude, longitude);
+          latitude.toString(), longitude.toString());
 
       setState((state) => state.copyWith(openWeatherPollutionInfo: result));
     });
