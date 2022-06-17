@@ -7,7 +7,6 @@ part 'forecast_screen_intent.freezed.dart';
 class OpenWeatherForecastIntent
     with _$OpenWeatherForecastIntent
     implements BaseIntent {
-  factory OpenWeatherForecastIntent.search(
-      {required String latitude,
-      required String longitude}) = _OpenWeatherForecastIntent_Search;
+  factory OpenWeatherForecastIntent.search({required String cityName}) =
+      _OpenWeatherForecastIntent_Search;
 }
