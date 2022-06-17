@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_viewmodel.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/widget/forecast_scroll_structure.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
@@ -328,25 +329,17 @@ class WeatherForecast extends ConsumerWidget {
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Row(
                                 children: [
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Today",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[0]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -354,25 +347,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 15.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "today + 1",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 1",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[1]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -380,25 +365,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 15.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "today + 2",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 18.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 2",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[2]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -406,25 +383,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 15.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Today + 3",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 16.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 3",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[3]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -432,25 +401,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 15.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Today + 4",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 16.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 4",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[4]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -458,25 +419,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 14.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Today + 5",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 15.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 5",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[5]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -484,25 +437,17 @@ class WeatherForecast extends ConsumerWidget {
                                   const SizedBox(
                                     width: 15.0,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Text(
-                                        "Today + 6",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(height: 15.0),
-                                      Text(
-                                        "0",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ForecastScrollStrcutre(
+                                      dayOfWeek: "Today + 6",
+                                      temperatureOnThatDay:
+                                          forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast
+                                                  .isEmpty
+                                              ? "0"
+                                              : forecastScreenViewModelNew
+                                                  .openWeatherForecast
+                                                  .weatherForecast[6]),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
