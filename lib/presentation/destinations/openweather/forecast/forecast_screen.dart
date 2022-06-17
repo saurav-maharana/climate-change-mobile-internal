@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_viewmodel.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -215,13 +216,21 @@ class WeatherForecast extends ConsumerWidget {
                         width: double.infinity,
                         height: 30.0,
                         child: Center(
-                          child: Text(
-                            "$cityName as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                            ),
-                          ),
+                          child: _controller.text.isNotEmpty
+                              ? Text(
+                                  "${_controller.text} as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                  ),
+                                )
+                              : Text(
+                                  "$globalCityName as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                  ),
+                                ),
                         ),
                       ),
                       const Divider(),
