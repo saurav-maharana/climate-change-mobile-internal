@@ -1,5 +1,4 @@
 import 'package:flutter_template/domain/entity/openweather/weather_forecast.dart';
-import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/interactor/openweather/openweather_forecast_interactor.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_state.dart';
