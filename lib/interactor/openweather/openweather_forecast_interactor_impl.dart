@@ -14,7 +14,7 @@ class OpenWeatherForecastInteractorImpl extends OpenWeatherForecastInteractor {
   Future<OpenWeatherForecast> getForecast(
       String latitude, String longitude) async {
     final searchResults =
-        await openWeatherForecastUseCase(param: Tuple2(longitude, latitude));
+        await openWeatherForecastUseCase(param: Tuple2(latitude, longitude));
 
     return searchResults.when(
       success: (data) => data,
