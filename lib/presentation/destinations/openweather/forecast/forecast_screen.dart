@@ -1,7 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/date_forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen_viewmodel.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/widget/forecast_scroll_structure.dart';
@@ -9,40 +8,11 @@ import 'package:flutter_template/presentation/destinations/openweather/home/home
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 class WeatherForecast extends ConsumerWidget {
-  String cityName;
-
-  WeatherForecast({
-    Key? key,
-    this.cityName = "",
-  }) : super(key: key);
-
-  double latitude = 0.0;
-  double longitude = 0.0;
-
-  // final dateNow = DateFormat('EEEE').format(DateTime.now());
-  // final dateNow1 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 1)))
-  //     .substring(0, 3);
-  // final dateNow2 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 2)))
-  //     .substring(0, 3);
-  // final dateNow3 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 3)))
-  //     .substring(0, 3);
-  // final dateNow4 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 4)))
-  //     .substring(0, 3);
-  // final dateNow5 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 5)))
-  //     .substring(0, 3);
-  // final dateNow6 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 6)))
-  //     .substring(0, 3);
-  // final dateNow7 = DateFormat('EEEE')
-  //     .format(DateTime.now().add(const Duration(days: 7)))
-  //     .substring(0, 3);
+  WeatherForecast({Key? key}) : super(key: key);
 
   final TextEditingController _controller = TextEditingController();
 
@@ -78,41 +48,14 @@ class WeatherForecast extends ConsumerWidget {
     }
   }
 
-  // getForecast() async {
-  //   try {
-  //     await GeocodingPlatform.instance
-  //         .locationFromAddress(widget.cityName)
-  //         .then((value) async {
-  //       setState(() {
-  //         latitude = value[0].latitude;
-  //         longitude = value[0].longitude;
-  //       });
-  //     });
-  //     final res = await FutureForecast()
-  //         .getForecast(latitude.toString(), longitude.toString(), widget.units);
-  //     setState(() {
-  //       weatherForecast = res;
-  //     });
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text(
-  //         e.toString(),
-  //         style: const TextStyle(color: Colors.black),
-  //       ),
-  //       backgroundColor: Theme.of(context).backgroundColor,
-  //     ));
-  //     setState(() {
-  //       weatherForecast = WeatherForecast(weatherForecast: []);
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final forecastScreenViewModel =
         ref.watch(openWeatherForecastViewModel.notifier);
 
     final forecastScreenViewModelNew = ref.watch(openWeatherForecastViewModel);
+
+    initializeDateFormatting();
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -333,7 +276,11 @@ class WeatherForecast extends ConsumerWidget {
                               child: Row(
                                 children: [
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today",
+                                      dayOfWeek: dateNow ==
+                                              DateFormat('EEEE')
+                                                  .format(DateTime.now())
+                                          ? "Today"
+                                          : dateNow,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -352,7 +299,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 15.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 1",
+                                      dayOfWeek: dateNow1,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -371,7 +318,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 15.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 2",
+                                      dayOfWeek: dateNow2,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -390,7 +337,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 15.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 3",
+                                      dayOfWeek: dateNow3,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -409,7 +356,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 15.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 4",
+                                      dayOfWeek: dateNow4,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -428,7 +375,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 14.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 5",
+                                      dayOfWeek: dateNow5,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
@@ -447,7 +394,7 @@ class WeatherForecast extends ConsumerWidget {
                                     width: 15.0,
                                   ),
                                   ForecastScrollStrcutre(
-                                      dayOfWeek: "Today + 6",
+                                      dayOfWeek: dateNow6,
                                       temperatureOnThatDay:
                                           forecastScreenViewModelNew
                                                   .openWeatherForecast
