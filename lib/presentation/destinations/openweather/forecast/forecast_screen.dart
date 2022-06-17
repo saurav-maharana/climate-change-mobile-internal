@@ -263,7 +263,7 @@ class WeatherForecast extends ConsumerWidget {
                                       .openWeatherForecast.weatherForecast[0]
                                       .toString()
                                       .padLeft(9)
-                                  : "0",
+                                  : "0".padLeft(8),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
