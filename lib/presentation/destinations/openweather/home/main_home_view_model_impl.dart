@@ -7,7 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
 
-String globalCityName = "Pune";
+String globalCityName = "";
 
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   final OpenWeatherInteractor openWeatherInteractor;
@@ -20,6 +20,10 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
 
   @override
   onInit() async {
+    globalCityName == "" ? getCurrentLocation() : getPopulatedData();
+  }
+
+  getCurrentLocation() async {
     await GeolocatorPlatform.instance.requestPermission();
     await GeolocatorPlatform.instance
         .getCurrentPosition(
@@ -29,16 +33,23 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
         .then((value) {
       latitude = value.latitude;
       longitude = value.longitude;
-    });
-
-    await GeocodingPlatform.instance
-        .placemarkFromCoordinates(latitude, longitude)
-        .then((value) {
-      globalCityName = value[0].subAdministrativeArea!;
     }).then((_) async {
-      final result = await openWeatherInteractor.search(globalCityName);
-      setState((state) => state.copyWith(currentWeather: result));
+      await GeocodingPlatform.instance
+          .placemarkFromCoordinates(latitude, longitude)
+          .then((value) {
+        globalCityName = value[0].subAdministrativeArea!;
+      }).then((_) async {
+        final result = await openWeatherInteractor.search(globalCityName);
+        setState((state) => state.copyWith(currentWeather: result));
+        globalCityName = result.cityName;
+      });
     });
+  }
+
+  getPopulatedData() async {
+    final result = await openWeatherInteractor.search(globalCityName);
+    setState((state) => state.copyWith(currentWeather: result));
+    globalCityName = result.cityName;
   }
 
   static OpenWeatherHomeScreenState get _initialState =>
