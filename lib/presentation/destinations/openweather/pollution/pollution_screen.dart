@@ -118,11 +118,10 @@ class PollutionScreen extends ConsumerWidget {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              // pollutionScreenViewModelUse.onIntent(
-                              //   PollutionScreenIntent.search(
-                              //       latitude: '', longitude: ''),
-                              // );
                               globalCityName = _controller.text;
+                              pollutionScreenViewModelUse.onIntent(
+                                  PollutionScreenIntent.searchUsingCityName(
+                                      cityName: globalCityName));
                             },
                             icon: const Icon(Icons.search),
                           ),
