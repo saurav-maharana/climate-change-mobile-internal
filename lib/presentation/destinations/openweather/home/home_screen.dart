@@ -248,7 +248,9 @@ class OpenWeatherHome extends ConsumerWidget {
                           children: [
                             TextSpan(
                               text: newVM.currentWeather.currentTemperature
-                                  .toString(),
+                                  .roundToDouble()
+                                  .toString()
+                                  .padLeft(7),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
@@ -346,8 +348,9 @@ class OpenWeatherHome extends ConsumerWidget {
                             Text.rich(TextSpan(
                               children: [
                                 TextSpan(
-                                  text:
-                                      newVM.currentWeather.feelsLike.toString(),
+                                  text: newVM.currentWeather.feelsLike
+                                      .roundToDouble()
+                                      .toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 50,
