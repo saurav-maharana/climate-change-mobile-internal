@@ -262,6 +262,7 @@ class WeatherForecast extends ConsumerWidget {
                                   ? forecastScreenViewModelNew
                                       .openWeatherForecast.weatherForecast[0]
                                       .toString()
+                                      .padLeft(9)
                                   : "0",
                               style: const TextStyle(
                                 color: Colors.white,
