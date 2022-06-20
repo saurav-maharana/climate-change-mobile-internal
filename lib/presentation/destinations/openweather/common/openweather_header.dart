@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
@@ -10,6 +8,7 @@ class OpenWeatherCommonHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     Future<void> showOptionsMenu(BuildContext context, int hiveIndex) async {
       int? selected = await showMenu(
         position: const RelativeRect.fromLTRB(100, 00, 30, 30),
@@ -29,16 +28,17 @@ class OpenWeatherCommonHeader extends StatelessWidget {
           ),
         ],
       );
+
       if (selected == 0) {
-        Navigator.of(context).pushAndRemoveUntil(
+        navigator.pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => OpenWeatherHome()),
             (route) => false);
       } else if (selected == 1) {
-        Navigator.of(context).pushAndRemoveUntil(
+        navigator.pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => PollutionScreen()),
             (route) => false);
       } else if (selected == 2) {
-        Navigator.of(context).pushAndRemoveUntil(
+        navigator.pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => WeatherForecast()),
             (route) => false);
       } else {
