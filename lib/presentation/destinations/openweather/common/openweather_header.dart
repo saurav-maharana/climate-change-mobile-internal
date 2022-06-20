@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 
 class OpenWeatherCommonHeader extends StatelessWidget {
@@ -27,7 +28,9 @@ class OpenWeatherCommonHeader extends StatelessWidget {
         ],
       );
       if (selected == 0) {
-        null;
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => OpenWeatherHome()),
+            (route) => false);
       } else if (selected == 1) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => PollutionScreen()),
