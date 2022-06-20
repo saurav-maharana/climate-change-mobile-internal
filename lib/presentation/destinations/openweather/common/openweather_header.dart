@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
