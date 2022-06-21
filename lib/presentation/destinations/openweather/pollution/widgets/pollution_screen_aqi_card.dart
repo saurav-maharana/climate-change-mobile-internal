@@ -57,9 +57,11 @@ class PollutionScreenAQICard extends StatelessWidget {
             elevation: 0.0,
             child: Text.rich(TextSpan(
               children: [
-                const TextSpan(
-                  text: "Air Quality Index\n",
-                  style: TextStyle(
+                TextSpan(
+                  text: language == "en"
+                      ? "Air Quality Index\n"
+                      : "वायु गुणवत्ता सूचकांक स्तर",
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                   ),
