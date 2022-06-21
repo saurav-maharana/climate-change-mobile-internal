@@ -1,21 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast.dart';
-import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_intent.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_viewmodel.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class PollutionScreen extends StatefulWidget {
-  const PollutionScreen({Key? key}) : super(key: key);
+class PollutionScreen extends ConsumerWidget {
+  PollutionScreen({Key? key}) : super(key: key);
 
-  @override
-  State<PollutionScreen> createState() => _PollutionScreenState();
-}
-
-class _PollutionScreenState extends State<PollutionScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  Future<void> showOptionsMenu(int hiveIndex) async {
+  Future<void> showOptionsMenu(BuildContext context, int hiveIndex) async {
     int? selected = await showMenu(
       position: const RelativeRect.fromLTRB(100, 00, 30, 30),
       context: context,
@@ -35,11 +33,11 @@ class _PollutionScreenState extends State<PollutionScreen> {
     );
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
+          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
           (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const PollutionScreen()),
+          MaterialPageRoute(builder: (context) => PollutionScreen()),
           (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
@@ -49,7 +47,10 @@ class _PollutionScreenState extends State<PollutionScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pollutionScreenViewModelUse =
+        ref.watch(pollutionScreenViewModel.notifier);
+    final newPollutionScreenViewModel = ref.watch(pollutionScreenViewModel);
     return SafeArea(
       child: Scaffold(
         backgroundColor: HexColor('#E5E5E5'),
@@ -92,7 +93,7 @@ class _PollutionScreenState extends State<PollutionScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => showOptionsMenu(0),
+                            onTap: () => showOptionsMenu(context, 0),
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
                               child: const Icon(
@@ -114,7 +115,12 @@ class _PollutionScreenState extends State<PollutionScreen> {
                         controller: _controller,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
-                            onPressed: () async {},
+                            onPressed: () async {
+                              pollutionScreenViewModelUse.onIntent(
+                                PollutionScreenIntent.search(
+                                    latitude: '', longitude: ''),
+                              );
+                            },
                             icon: const Icon(Icons.search),
                           ),
                           fillColor: Colors.white,
@@ -172,7 +178,9 @@ class _PollutionScreenState extends State<PollutionScreen> {
                               ),
                             ),
                             TextSpan(
-                              text: "34".padLeft(6),
+                              text:
+                                  "${newPollutionScreenViewModel.openWeatherPollutionInfo.airQualityIndex}"
+                                      .padLeft(6),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
@@ -230,24 +238,26 @@ class _PollutionScreenState extends State<PollutionScreen> {
                           left: 10.0,
                         ),
                         child: Row(
-                          children: const [
+                          children: [
                             Text.rich(TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "34",
-                                  style: TextStyle(
+                                  text: newPollutionScreenViewModel
+                                      .openWeatherPollutionInfo.airQualityIndex
+                                      .toString(),
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 50,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: "\u00b0C\n",
                                   style: TextStyle(
                                     fontSize: 50,
                                     color: Colors.black,
                                   ),
                                 ),
-                                TextSpan(
+                                const TextSpan(
                                   text: "Feels Like",
                                   style: TextStyle(
                                     fontSize: 30,
@@ -272,73 +282,81 @@ class _PollutionScreenState extends State<PollutionScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("CO"),
-                                Text("34"),
+                              children: [
+                                const Text("CO"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.co
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("NO"),
-                                Text(
-                                  "34",
-                                ),
+                              children: [
+                                const Text("NO"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.no
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("NO2"),
-                                Text("34"),
+                              children: [
+                                const Text("NO2"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.no2
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("O3"),
-                                Text("34"),
+                              children: [
+                                const Text("O3"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.o3
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("SO2"),
-                                Text("34"),
+                              children: [
+                                const Text("SO2"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.so2
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("PM2_5"),
-                                Text(
-                                  "34",
-                                ),
+                              children: [
+                                const Text("PM2_5"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.pm2_5
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("NH3"),
-                                Text(
-                                  "34",
-                                ),
+                              children: [
+                                const Text("NH3"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.nh3
+                                    .toString()),
                               ],
                             ),
                             const Divider(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Text("PM10"),
-                                Text(
-                                  "34",
-                                ),
+                              children: [
+                                const Text("PM10"),
+                                Text(newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.pm10
+                                    .toString()),
                               ],
                             ),
                             const Divider(),

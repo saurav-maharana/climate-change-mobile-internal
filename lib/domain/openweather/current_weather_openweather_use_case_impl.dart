@@ -11,6 +11,6 @@ class CurrentWeatherUseCaseImpl extends CurrentWeatherUseCase {
 
   @override
   Future<CurrentWeather> callInternal(String param) async {
-    return openWeatherRepository.searchCity(param);
+    return await openWeatherRepository.searchCity(param);
   }
 }
