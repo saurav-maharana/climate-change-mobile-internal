@@ -145,7 +145,19 @@ class PollutionScreen extends ConsumerWidget {
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13.0)),
-                  color: HexColor('#EF4444'),
+                  color: newPollutionScreenViewModel
+                              .openWeatherPollutionInfo.airQualityIndex ==
+                          1
+                      ? HexColor('#22C55E')
+                      : (newPollutionScreenViewModel.openWeatherPollutionInfo
+                                      .airQualityIndex >=
+                                  2 &&
+                              newPollutionScreenViewModel
+                                      .openWeatherPollutionInfo
+                                      .airQualityIndex <=
+                                  3)
+                          ? HexColor('#EAB308')
+                          : HexColor('#EF4444'),
                   child: Column(
                     children: [
                       Container(
@@ -181,7 +193,20 @@ class PollutionScreen extends ConsumerWidget {
                         margin: const EdgeInsets.only(
                           left: 30.0,
                         ),
-                        color: HexColor('#EF4444'),
+                        color: newPollutionScreenViewModel
+                                    .openWeatherPollutionInfo.airQualityIndex ==
+                                1
+                            ? HexColor('#22C55E')
+                            : (newPollutionScreenViewModel
+                                            .openWeatherPollutionInfo
+                                            .airQualityIndex >=
+                                        2 &&
+                                    newPollutionScreenViewModel
+                                            .openWeatherPollutionInfo
+                                            .airQualityIndex <=
+                                        3)
+                                ? HexColor('#EAB308')
+                                : HexColor('#EF4444'),
                         elevation: 0.0,
                         child: Text.rich(TextSpan(
                           children: [

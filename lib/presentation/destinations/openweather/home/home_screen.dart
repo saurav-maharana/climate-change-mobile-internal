@@ -248,7 +248,9 @@ class OpenWeatherHome extends ConsumerWidget {
                           children: [
                             TextSpan(
                               text: newVM.currentWeather.currentTemperature
-                                  .toString(),
+                                  .roundToDouble()
+                                  .toString()
+                                  .padLeft(7),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
@@ -272,11 +274,36 @@ class OpenWeatherHome extends ConsumerWidget {
                         )),
                       ),
                       const Divider(),
-                      ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(13.0),
-                              bottomRight: Radius.circular(13.0)),
-                          child: Image.asset('assets/images/city.png')),
+                      (newVM.currentWeather.description.contains('clouds') ||
+                              newVM.currentWeather.description.contains('haze'))
+                          ? ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(13.0),
+                              ),
+                              child: Image.asset('assets/images/cloudy.png'))
+                          : newVM.currentWeather.description
+                                  .contains('Clear Sky')
+                              ? ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(13.0),
+                                  ),
+                                  child: Image.asset('assets/images/sunny.png'))
+                              : (newVM.currentWeather.description
+                                          .contains('Rainy') ||
+                                      newVM.currentWeather.description
+                                          .contains('drizzle'))
+                                  ? ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(13.0),
+                                      ),
+                                      child: Image.asset(
+                                          'assets/images/raining.png'))
+                                  : ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(13.0),
+                                      ),
+                                      child: Image.asset(
+                                          'assets/images/city.png')),
                     ],
                   ),
                 ),
@@ -321,8 +348,9 @@ class OpenWeatherHome extends ConsumerWidget {
                             Text.rich(TextSpan(
                               children: [
                                 TextSpan(
-                                  text:
-                                      newVM.currentWeather.feelsLike.toString(),
+                                  text: newVM.currentWeather.feelsLike
+                                      .roundToDouble()
+                                      .toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 50,
