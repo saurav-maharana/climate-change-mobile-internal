@@ -1,24 +1,22 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast.dart';
-import 'package:flutter_template/presentation/destinations/openweather/pollution_info.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
+import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_info.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class OpenWeatherHome extends StatefulWidget {
-  const OpenWeatherHome({Key? key}) : super(key: key);
+class OpenWeatherHome extends ConsumerWidget {
+  OpenWeatherHome({Key? key}) : super(key: key);
 
-  @override
-  State<OpenWeatherHome> createState() => _OpenWeatherHomeState();
-}
-
-class _OpenWeatherHomeState extends State<OpenWeatherHome> {
-  late List<bool> isSelectedList;
-  late List<bool> isSelectedListLanguage;
+  List<bool> isSelectedList = [true, false];
+  List<bool> isSelectedListLanguage = [true, false];
   final TextEditingController _controller = TextEditingController();
   String? cityName;
 
-  Future<void> showOptionsMenu(int hiveIndex) async {
+  Future<void> showOptionsMenu(BuildContext context, int hiveIndex) async {
     int? selected = await showMenu(
       position: const RelativeRect.fromLTRB(100, 00, 30, 30),
       context: context,
@@ -38,7 +36,7 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
     );
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
+          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
           (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(
@@ -52,14 +50,9 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
   }
 
   @override
-  void initState() {
-    isSelectedList = [true, false];
-    isSelectedListLanguage = [true, false];
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(openWeatherHomeViewModel.notifier);
+    final newVM = ref.watch(openWeatherHomeViewModel);
     return SafeArea(
       child: Scaffold(
         backgroundColor: HexColor('#E5E5E5'),
@@ -97,7 +90,9 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => showOptionsMenu(0),
+                            onTap: () {
+                              showOptionsMenu(context, 0);
+                            },
                             child: Container(
                               margin: const EdgeInsets.only(right: 20.0),
                               child: const Icon(
@@ -120,16 +115,15 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () async {
-                              try {} catch (e) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: const Text(
-                                    "City Not Found",
-                                    style: TextStyle(color: Colors.black),
+                              try {
+                                viewModel.onIntent(OpenWeatherHomeIntent.search(
+                                    searchTerm: _controller.text));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("$e"),
                                   ),
-                                  backgroundColor:
-                                      Theme.of(context).backgroundColor,
-                                ));
+                                );
                               }
                             },
                             icon: const Icon(Icons.search),
@@ -157,18 +151,15 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             fillColor: Colors.white,
                             borderRadius: BorderRadius.circular(20.0),
                             onPressed: (int index) {
-                              setState(() {
-                                for (int i = 0;
-                                    i < isSelectedListLanguage.length;
-                                    i++) {
-                                  if (i == index) {
-                                    isSelectedListLanguage[i] =
-                                        !isSelectedListLanguage[i];
-                                  } else {
-                                    isSelectedListLanguage[i] = false;
-                                  }
+                              for (int i = 0;
+                                  i < isSelectedListLanguage.length;
+                                  i++) {
+                                if (i == index) {
+                                  isSelectedListLanguage[i] = true;
+                                } else {
+                                  isSelectedListLanguage[i] = false;
                                 }
-                              });
+                              }
                             },
                             isSelected: isSelectedListLanguage,
                             children: const [
@@ -190,19 +181,15 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                             fillColor: Colors.white,
                             borderRadius: BorderRadius.circular(30.0),
                             onPressed: (int index) {
-                              setState(() {
-                                for (int i = 0;
-                                    i < isSelectedList.length;
-                                    i++) {
-                                  if (i == index) {
-                                    isSelectedList[i] = !isSelectedList[i];
-                                  } else {
-                                    isSelectedList[i] = false;
-                                  }
+                              for (int i = 0; i < isSelectedList.length; i++) {
+                                if (i == index) {
+                                  isSelectedList[i] = !isSelectedList[i];
+                                } else {
+                                  isSelectedList[i] = false;
                                 }
-                              });
+                              }
                             },
-                            isSelected: isSelectedList,
+                            isSelected: const [true, false],
                             children: const [
                               Padding(
                                 padding: EdgeInsets.all(12.0),
@@ -238,7 +225,7 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         height: 30.0,
                         child: Center(
                           child: Text(
-                            "City Name goes Here as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
+                            "${newVM.currentWeather.cityName} as on ${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().timeZoneName}",
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 17,
@@ -253,16 +240,17 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         ),
                         color: HexColor('#91B8DE'),
                         elevation: 0.0,
-                        child: const Text.rich(TextSpan(
+                        child: Text.rich(TextSpan(
                           children: [
                             TextSpan(
-                              text: "34",
-                              style: TextStyle(
+                              text: newVM.currentWeather.currentTemperature
+                                  .toString(),
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 50,
                               ),
                             ),
-                            TextSpan(
+                            const TextSpan(
                               text: "\u00b0C\n",
                               style: TextStyle(
                                 fontSize: 50,
@@ -270,8 +258,8 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                               ),
                             ),
                             TextSpan(
-                              text: "Description Goes Here",
-                              style: TextStyle(
+                              text: newVM.currentWeather.description,
+                              style: const TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
                               ),
@@ -319,24 +307,24 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         left: 10.0,
                       ),
                       child: Row(
-                        children: const [
+                        children: [
                           Text.rich(TextSpan(
                             children: [
                               TextSpan(
-                                text: "40",
-                                style: TextStyle(
+                                text: newVM.currentWeather.feelsLike.toString(),
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 50,
                                 ),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: "\u00b0C\n",
                                 style: TextStyle(
                                   fontSize: 50,
                                   color: Colors.black,
                                 ),
                               ),
-                              TextSpan(
+                              const TextSpan(
                                 text: "Feels Like",
                                 style: TextStyle(
                                   fontSize: 30,
@@ -361,43 +349,42 @@ class _OpenWeatherHomeState extends State<OpenWeatherHome> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("High/Low"),
-                              Text("34/33"),
-                            ],
-                          ),
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Humidity"),
+                            children: [
+                              const Text("High/Low"),
                               Text(
-                                "455",
-                              ),
+                                  "${newVM.currentWeather.maximumTemperature}/${newVM.currentWeather.minimumTemperature}"),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Pressure"),
-                              Text("455"),
+                            children: [
+                              const Text("Humidity"),
+                              Text(newVM.currentWeather.humidity.toString()),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Visibility"),
-                              Text("123 mi"),
+                            children: [
+                              const Text("Pressure"),
+                              Text(newVM.currentWeather.presssure.toString()),
                             ],
                           ),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Wind"),
-                              Text("230 mph"),
+                            children: [
+                              const Text("Visibility"),
+                              Text(newVM.currentWeather.visibility.toString()),
+                            ],
+                          ),
+                          const Divider(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text("Wind"),
+                              Text("${newVM.currentWeather.windSpeed}mph"),
                             ],
                           ),
                           const Divider(),

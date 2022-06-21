@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TemplateApp extends StatelessWidget {
@@ -48,7 +48,7 @@ class TemplateApp extends StatelessWidget {
     // );
     return ProviderScope(
       child: MaterialApp(
-        home: const OpenWeatherHome(),
+        home: OpenWeatherHome(),
         theme: ThemeData(
           fontFamily: GoogleFonts.dmSans().fontFamily,
         ),

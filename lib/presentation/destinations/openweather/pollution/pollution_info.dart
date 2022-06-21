@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/presentation/destinations/openweather/forecast.dart';
-import 'package:flutter_template/presentation/destinations/openweather/main_home.dart';
+import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PollutionScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _PollutionScreenState extends State<PollutionScreen> {
     );
     if (selected == 0) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
+          MaterialPageRoute(builder: (context) => OpenWeatherHome()),
           (route) => false);
     } else if (selected == 1) {
       Navigator.of(context).pushAndRemoveUntil(

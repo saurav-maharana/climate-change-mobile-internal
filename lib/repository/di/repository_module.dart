@@ -3,6 +3,7 @@ import 'package:flutter_template/repository/date/date_repository.dart';
 import 'package:flutter_template/repository/date/date_repository_impl.dart';
 import 'package:flutter_template/repository/date/date_time_mapper.dart';
 import 'package:flutter_template/repository/date/time_mapper.dart';
+import 'package:flutter_template/repository/openweather/domain_openweather_mapper.dart';
 import 'package:flutter_template/repository/openweather/open_weather_repository.dart';
 import 'package:flutter_template/repository/openweather/open_weather_repository_impl.dart';
 import 'package:flutter_template/repository/preferences/preferences_repository.dart';
@@ -64,7 +65,12 @@ extension RepositoryModule on GetIt {
     registerLazySingleton<OpenWeatherRepository>(
       () => OpenWeatherRepositoryImpl(
         openWeatherRemoteService: get(),
+        domainOpenWeatherMapper: get(),
       ),
+    );
+
+    registerLazySingleton<DomainOpenWeatherMapper>(
+      () => DomainOpenWeatherMapperImpl(),
     );
   }
 }
