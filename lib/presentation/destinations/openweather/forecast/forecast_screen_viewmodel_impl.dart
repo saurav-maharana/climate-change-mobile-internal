@@ -9,8 +9,6 @@ import 'package:geocoding/geocoding.dart';
 
 class OpenWeatherForecastViewModelImpl extends OpenWeatherForecastViewModel {
   OpenWeatherForecastInteractor openWeatherForecastInteractor;
-  double latitude = 0.0;
-  double longitude = 0.0;
 
   OpenWeatherForecastViewModelImpl({
     required this.openWeatherForecastInteractor,

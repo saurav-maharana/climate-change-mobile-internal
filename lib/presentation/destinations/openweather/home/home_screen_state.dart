@@ -13,5 +13,6 @@ class OpenWeatherHomeScreenState
     required CurrentWeather currentWeather,
     required UIToolbar toolbar,
     required bool showLoading,
+    required String units,
   }) = _OpenWeatherHomeScreenState;
 }

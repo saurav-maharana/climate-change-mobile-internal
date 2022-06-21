@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class HomeScreenCard extends StatelessWidget {
@@ -59,9 +60,9 @@ class HomeScreenCard extends StatelessWidget {
                       fontSize: 50,
                     ),
                   ),
-                  const TextSpan(
-                    text: "\u00b0C\n",
-                    style: TextStyle(
+                  TextSpan(
+                    text: units == "metric" ? "\u00b0C\n" : "\u00b0F\n",
+                    style: const TextStyle(
                       fontSize: 50,
                       color: Colors.white,
                     ),

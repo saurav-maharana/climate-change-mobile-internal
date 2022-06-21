@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/entity/openweather/pollution_info.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/widgets/pollution_screen_componenets.dart';
 
 class PollutionScreenTodayCard extends StatelessWidget {
@@ -26,14 +27,22 @@ class PollutionScreenTodayCard extends StatelessWidget {
               left: 10.0,
             ),
             child: Row(
-              children: const [
-                Text(
-                  "Weather Today",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+              children: [
+                language == "en"
+                    ? const Text(
+                        "Weather Today",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      )
+                    : const Text(
+                        "अभी अपडेट किया गया",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
               ],
             ),
           ),
@@ -53,9 +62,9 @@ class PollutionScreenTodayCard extends StatelessWidget {
                         fontSize: 50,
                       ),
                     ),
-                    const TextSpan(
-                      text: "\nFeels Like",
-                      style: TextStyle(
+                    TextSpan(
+                      text: language == "en" ? "\nFeels Like" : "\nकी तरह लगना",
+                      style: const TextStyle(
                         fontSize: 30,
                         color: Colors.black,
                       ),

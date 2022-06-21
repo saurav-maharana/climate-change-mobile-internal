@@ -8,11 +8,13 @@ import 'package:geolocator/geolocator.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
 
 String globalCityName = "";
+double latitude = 0.0;
+double longitude = 0.0;
+String units = "metric";
+String language = "en";
 
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   final OpenWeatherInteractor openWeatherInteractor;
-  double latitude = 0.0;
-  double longitude = 0.0;
 
   OpenWeatherViewModelImpl({
     required this.openWeatherInteractor,
@@ -71,14 +73,22 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
           hasBackButton: false,
         ),
         showLoading: false,
+        units: units,
       );
 
   @override
   void onIntent(OpenWeatherHomeIntent intent) {
-    intent.when(search: (cityName) async {
-      final result = await openWeatherInteractor.search(cityName);
-      setState((state) => state.copyWith(currentWeather: result));
-      globalCityName = result.cityName;
-    });
+    intent.when(
+      search: (cityName) async {
+        final result = await openWeatherInteractor.search(cityName);
+        setState((state) => state.copyWith(currentWeather: result));
+        globalCityName = result.cityName;
+      },
+      units: (String units) async {
+        setState((state) => state.copyWith(units: units));
+        final result = await openWeatherInteractor.search(globalCityName);
+        setState((state) => state.copyWith(currentWeather: result));
+      },
+    );
   }
 }

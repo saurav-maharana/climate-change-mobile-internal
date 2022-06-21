@@ -4,17 +4,24 @@ import 'package:flutter_template/presentation/destinations/openweather/common/op
 import 'package:flutter_template/presentation/destinations/openweather/common/openweather_header.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen_intent.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/widgets/home_screen_card.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/widgets/home_screen_feels_like_card.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class OpenWeatherHome extends ConsumerWidget {
-  OpenWeatherHome({Key? key}) : super(key: key);
-
-  final TextEditingController _controller = TextEditingController();
+class OpenWeatherHome extends ConsumerStatefulWidget {
+  const OpenWeatherHome({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => OpenWeatherHomeState();
+}
+
+class OpenWeatherHomeState extends ConsumerState<OpenWeatherHome> {
+  final TextEditingController _controller = TextEditingController();
+  List<bool> isSelectedUnit = [true, false];
+  List<bool> isSelectedLanguage = [true, false];
+  @override
+  Widget build(BuildContext context) {
     final viewModel = ref.watch(openWeatherHomeViewModel.notifier);
     final newVM = ref.watch(openWeatherHomeViewModel);
     return SafeArea(
@@ -66,19 +73,49 @@ class OpenWeatherHome extends ConsumerWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: OpenWeatherToggleButton(
+                            isSelected: isSelectedLanguage,
                             toggleButtonText1: "English",
                             toggleButtonText2: 'Hindi',
+                            onPressed: (int index) {
+                              for (int i = 0;
+                                  i < isSelectedLanguage.length;
+                                  i++) {
+                                setState(() {
+                                  if (i == index) {
+                                    isSelectedLanguage[i] = true;
+                                    language = "hi";
+                                  } else {
+                                    isSelectedLanguage[i] = false;
+                                    language = "en";
+                                  }
+                                });
+                              }
+                            },
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: OpenWeatherToggleButton(
+                            isSelected: isSelectedUnit,
                             toggleButtonText1: "C",
                             toggleButtonText2: 'F',
+                            onPressed: (int index) {
+                              for (int i = 0; i < isSelectedUnit.length; i++) {
+                                setState(() {
+                                  if (i == index) {
+                                    isSelectedUnit[i] = true;
+                                    units = "imperial";
+                                  } else {
+                                    isSelectedUnit[i] = false;
+                                    units = "metric";
+                                  }
+                                });
+                              }
+                            },
                           ),
                         ),
                       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/widgets/home_screen_weather_components_row.dart';
 
 class HomeScreenFeelsLikeCard extends StatelessWidget {
@@ -28,14 +29,22 @@ class HomeScreenFeelsLikeCard extends StatelessWidget {
                 left: 10.0,
               ),
               child: Row(
-                children: const [
-                  Text(
-                    "Weather Today",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
+                children: [
+                  language == "en"
+                      ? const Text(
+                          "Feels Like",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        )
+                      : const Text(
+                          "की तरह लगना",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -63,13 +72,13 @@ class HomeScreenFeelsLikeCard extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      const TextSpan(
-                        text: "Feels Like",
-                        style: TextStyle(
+                      TextSpan(
+                        text: language == "en" ? "Feels Like" : "की तरह लगना",
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.black,
                         ),
-                      ),
+                      )
                     ],
                   )),
                 ],

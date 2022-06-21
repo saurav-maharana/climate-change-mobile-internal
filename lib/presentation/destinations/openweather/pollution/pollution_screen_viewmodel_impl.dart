@@ -1,5 +1,4 @@
 import 'package:flutter_template/domain/entity/openweather/pollution_info.dart';
-import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/interactor/openweather/openweather_pollution_interactor.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_intent.dart';
@@ -10,8 +9,6 @@ import 'package:geocoding/geocoding.dart';
 
 class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
   OpenWeatherPollutionInteractor openWeatherPollutionInteractor;
-  double latitude = 0.0;
-  double longitude = 0.0;
 
   PollutionScreenViewModelImpl({
     required this.openWeatherPollutionInteractor,
@@ -19,7 +16,6 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
 
   @override
   onInit() async {
-    logD('globAL CITY NAME FROM POlLUTION-VM :::: $globalCityName');
     await GeocodingPlatform.instance
         .locationFromAddress(globalCityName)
         .then((value) {
