@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/entity/openweather/weather_forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/date_forecast.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/widget/forecast_scroll_structure.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:intl/intl.dart';
 
 class ForecastDetails extends StatelessWidget {
@@ -28,14 +29,22 @@ class ForecastDetails extends StatelessWidget {
               left: 20.0,
             ),
             child: Row(
-              children: const [
-                Text(
-                  "Daily Forecast",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 27,
-                  ),
-                ),
+              children: [
+                language == "en"
+                    ? const Text(
+                        "Daily Forecast",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 27,
+                        ),
+                      )
+                    : const Text(
+                        "की तरह लगना",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 27,
+                        ),
+                      ),
               ],
             ),
           ),
