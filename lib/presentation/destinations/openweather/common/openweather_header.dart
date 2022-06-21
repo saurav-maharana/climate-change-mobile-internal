@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/presentation/destinations/openweather/forecast/forecast_screen.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/home_screen.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen.dart';
 
 class OpenWeatherCommonHeader extends StatelessWidget {
@@ -13,25 +14,29 @@ class OpenWeatherCommonHeader extends StatelessWidget {
       int? selected = await showMenu(
         position: const RelativeRect.fromLTRB(100, 00, 30, 30),
         context: context,
-        items: const [
+        items: [
           PopupMenuItem(
             value: 0,
-            child: Text("Home"),
+            child: language == "en" ? const Text("Home") : const Text("होम"),
           ),
           PopupMenuItem(
             value: 1,
-            child: Text("Pollution Info"),
+            child: language == "en"
+                ? const Text("Pollution Info")
+                : const Text("प्रदूषण की जानकारी"),
           ),
           PopupMenuItem(
             value: 2,
-            child: Text("Forecast"),
+            child: language == "en"
+                ? const Text("Forecast")
+                : const Text("भविष्यवाणी"),
           ),
         ],
       );
 
       if (selected == 0) {
         navigator.pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => OpenWeatherHome()),
+            MaterialPageRoute(builder: (context) => const OpenWeatherHome()),
             (route) => false);
       } else if (selected == 1) {
         navigator.pushAndRemoveUntil(
