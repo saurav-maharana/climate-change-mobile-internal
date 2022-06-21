@@ -118,7 +118,7 @@ class PollutionScreen extends ConsumerWidget {
                             onPressed: () async {
                               pollutionScreenViewModelUse.onIntent(
                                 PollutionScreenIntent.search(
-                                    cityName: _controller.text),
+                                    latitude: '', longitude: ''),
                               );
                             },
                             icon: const Icon(Icons.search),

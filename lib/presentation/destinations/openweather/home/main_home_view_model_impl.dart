@@ -7,11 +7,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
 
+String cityName = "";
+
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   final OpenWeatherInteractor openWeatherInteractor;
   double latitude = 0.0;
   double longitude = 0.0;
-  String cityName = "";
 
   OpenWeatherViewModelImpl({
     required this.openWeatherInteractor,
