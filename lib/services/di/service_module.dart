@@ -2,6 +2,10 @@ import 'package:flutter_template/flavors/flavor_config.dart';
 import 'package:flutter_template/services/base/database/app_database.dart';
 import 'package:flutter_template/services/base/di/dio_provider.dart';
 import 'package:flutter_template/services/base/dio/interceptors/open_weather_api_key_interceptor.dart';
+import 'package:flutter_template/services/openweather/remote/open_weather_forecast_remote_service.dart';
+import 'package:flutter_template/services/openweather/remote/open_weather_forecast_remote_service_impl.dart';
+import 'package:flutter_template/services/openweather/remote/open_weather_pollution_remote_service.dart';
+import 'package:flutter_template/services/openweather/remote/open_weather_pollution_remote_service_impl.dart';
 import 'package:flutter_template/services/openweather/remote/openweather_remote_service.dart';
 import 'package:flutter_template/services/openweather/remote/openweather_remote_service_impl.dart';
 import 'package:flutter_template/services/preferences/preferences_service.dart';
@@ -63,5 +67,15 @@ extension ServiceModule on GetIt {
         dio: get(),
       );
     });
+
+    registerLazySingleton<OpenWeatherPollutionRemoteService>(
+        () => OpenWeatherPollutionRemoteServiceImpl(
+              dio: get(),
+            ));
+
+    registerLazySingleton<OpenWeatherForecastRemoteService>(
+        () => OpenWeatherForecastRemoteServiceImpl(
+              dio: get(),
+            ));
   }
 }

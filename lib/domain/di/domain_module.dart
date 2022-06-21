@@ -4,6 +4,10 @@ import 'package:flutter_template/domain/datetime/format_date_use_case.dart';
 import 'package:flutter_template/domain/datetime/format_date_use_case_impl.dart';
 import 'package:flutter_template/domain/openweather/current_weather_openweather_use_case_impl.dart';
 import 'package:flutter_template/domain/openweather/current_weather_openweather_usecase.dart';
+import 'package:flutter_template/domain/openweather/open_weather_forecast_usecase.dart';
+import 'package:flutter_template/domain/openweather/open_weather_forecast_usecase_impl.dart';
+import 'package:flutter_template/domain/openweather/open_weather_pollution_usecase.dart';
+import 'package:flutter_template/domain/openweather/open_weather_pollution_usercase_impl.dart';
 import 'package:flutter_template/domain/theme/get_is_dynamic_theme_enabled.dart';
 import 'package:flutter_template/domain/theme/get_is_dynamic_theme_enabled_impl.dart';
 import 'package:flutter_template/domain/theme/get_theme_mode_use_case.dart';
@@ -96,5 +100,15 @@ extension DomainModule on GetIt {
     registerFactory<CurrentWeatherUseCase>(() => CurrentWeatherUseCaseImpl(
           openWeatherRepository: get(),
         ));
+
+    registerFactory<OpenWeatherPollutionUseCase>(
+        () => OpenWeatherPollutionUsecaseImpl(
+              openWeatherPollutionRepository: get(),
+            ));
+
+    registerFactory<OpenWeatherForecastUseCase>(
+        () => OpenWeatherForecastUseCaseImpl(
+              openWeatherForecastRepository: get(),
+            ));
   }
 }
