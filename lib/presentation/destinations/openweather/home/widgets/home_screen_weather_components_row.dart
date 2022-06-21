@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/domain/entity/openweather/current_weather.dart';
+import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 
 class HomeScreenWeatherComponents extends StatelessWidget {
   final CurrentWeather currentWeather;
@@ -16,7 +17,7 @@ class HomeScreenWeatherComponents extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("High/Low"),
+            language == "en" ? const Text("High/Low") : const Text("उच्च/कम"),
             Text(
                 "${currentWeather.maximumTemperature} / ${currentWeather.minimumTemperature}"),
           ],
@@ -25,7 +26,7 @@ class HomeScreenWeatherComponents extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Humidity"),
+            language == "en" ? const Text("Humidity") : const Text("नमी"),
             Text(currentWeather.humidity.toString()),
           ],
         ),
@@ -33,7 +34,7 @@ class HomeScreenWeatherComponents extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Pressure"),
+            language == "en" ? const Text("Pressure") : const Text("दबाव"),
             Text(currentWeather.presssure.toString()),
           ],
         ),
@@ -41,7 +42,7 @@ class HomeScreenWeatherComponents extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Visibility"),
+            language == "en" ? const Text("Visibility") : const Text("दृश्यता"),
             Text(currentWeather.visibility.toString()),
           ],
         ),
@@ -49,7 +50,7 @@ class HomeScreenWeatherComponents extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Wind"),
+            language == "en" ? const Text("Wind") : const Text("हवा"),
             Text("${currentWeather.windSpeed}mph"),
           ],
         ),
