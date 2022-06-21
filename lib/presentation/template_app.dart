@@ -48,7 +48,7 @@ class TemplateApp extends StatelessWidget {
     // );
     return ProviderScope(
       child: MaterialApp(
-        home: OpenWeatherHome(),
+        home: const OpenWeatherHome(),
         theme: ThemeData(
           fontFamily: GoogleFonts.dmSans().fontFamily,
         ),
