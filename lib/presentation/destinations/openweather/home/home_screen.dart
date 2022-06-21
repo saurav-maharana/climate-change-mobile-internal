@@ -66,16 +66,16 @@ class OpenWeatherHome extends ConsumerWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: OpenWeatherToggleButton(
                             toggleButtonText1: "English",
                             toggleButtonText2: 'Hindi',
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.all(20.0),
                           child: OpenWeatherToggleButton(
                             toggleButtonText1: "C",
                             toggleButtonText2: 'F',
