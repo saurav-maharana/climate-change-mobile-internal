@@ -1,41 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OpenWeatherToggleButton extends StatefulWidget {
+class OpenWeatherToggleButton extends ConsumerStatefulWidget {
   final String toggleButtonText1;
   final String toggleButtonText2;
+  final Function(int) onPressed;
+  final List<bool> isSelected;
 
-  const OpenWeatherToggleButton({
-    Key? key,
-    required this.toggleButtonText1,
-    required this.toggleButtonText2,
-  }) : super(key: key);
+  const OpenWeatherToggleButton(
+      {Key? key,
+      required this.toggleButtonText1,
+      required this.toggleButtonText2,
+      required this.onPressed,
+      required this.isSelected})
+      : super(key: key);
 
   @override
-  State<OpenWeatherToggleButton> createState() =>
-      _OpenWeatherToggleButtonState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      OpenWeatherToggleButtonState();
 }
 
-class _OpenWeatherToggleButtonState extends State<OpenWeatherToggleButton> {
-  final List<bool> isSelected = [true, false];
-
+class OpenWeatherToggleButtonState
+    extends ConsumerState<OpenWeatherToggleButton> {
   @override
   Widget build(BuildContext context) {
     return ToggleButtons(
       selectedColor: Colors.black,
       fillColor: Colors.white,
       borderRadius: BorderRadius.circular(30.0),
-      onPressed: (int index) {
-        for (int i = 0; i < isSelected.length; i++) {
-          setState(() {
-            if (i == index) {
-              isSelected[i] = true;
-            } else {
-              isSelected[i] = false;
-            }
-          });
-        }
-      },
-      isSelected: isSelected,
+      onPressed: widget.onPressed,
+      isSelected: widget.isSelected,
       children: [
         Padding(
           padding: const EdgeInsets.all(12.0),
