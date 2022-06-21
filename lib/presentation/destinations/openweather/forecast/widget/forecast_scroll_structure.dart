@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ForecastScrollStrcutre extends StatelessWidget {
   final String dayOfWeek;
-  final double temperatureOnThatDay;
+  final String temperatureOnThatDay;
 
   const ForecastScrollStrcutre({
     Key? key,
@@ -29,7 +29,7 @@ class ForecastScrollStrcutre extends StatelessWidget {
           height: 18.0,
         ),
         Text(
-          temperatureOnThatDay.toString(),
+          temperatureOnThatDay,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,

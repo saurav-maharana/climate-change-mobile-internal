@@ -341,7 +341,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[0]),
+                                                  .weatherForecast[0]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -359,7 +360,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[1]),
+                                                  .weatherForecast[1]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -377,7 +379,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[2]),
+                                                  .weatherForecast[2]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -395,7 +398,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[3]),
+                                                  .weatherForecast[3]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -413,7 +417,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[4]),
+                                                  .weatherForecast[4]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -431,7 +436,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[5]),
+                                                  .weatherForecast[5]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
@@ -449,7 +455,8 @@ class WeatherForecast extends ConsumerWidget {
                                               ? "0"
                                               : forecastScreenViewModelNew
                                                   .openWeatherForecast
-                                                  .weatherForecast[6]),
+                                                  .weatherForecast[6]
+                                                  .toString()),
                                   const VerticalDivider(
                                     thickness: 2,
                                     color: Colors.black,
