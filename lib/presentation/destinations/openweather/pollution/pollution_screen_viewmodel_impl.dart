@@ -1,4 +1,5 @@
 import 'package:flutter_template/domain/entity/openweather/pollution_info.dart';
+import 'package:flutter_template/foundation/extensions/object_ext.dart';
 import 'package:flutter_template/interactor/openweather/openweather_pollution_interactor.dart';
 import 'package:flutter_template/presentation/destinations/openweather/home/main_home_view_model_impl.dart';
 import 'package:flutter_template/presentation/destinations/openweather/pollution/pollution_screen_intent.dart';
@@ -18,8 +19,9 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
 
   @override
   onInit() async {
+    logD('globAL CITY NAME FROM POlLUTION-VM :::: $globalCityName');
     await GeocodingPlatform.instance
-        .locationFromAddress(cityName)
+        .locationFromAddress(globalCityName)
         .then((value) {
       latitude = value[0].latitude;
       longitude = value[0].longitude;
@@ -49,10 +51,17 @@ class PollutionScreenViewModelImpl extends PollutionScreenViewModel {
       );
 
   @override
-  void onIntent(PollutionScreenIntent intent) {
-    intent.when(search: (String latitude, String longitude) async {
+  void onIntent(PollutionScreenIntent intent) async {
+    await GeocodingPlatform.instance
+        .locationFromAddress(globalCityName)
+        .then((value) {
+      latitude = value[0].latitude;
+      longitude = value[0].longitude;
+    });
+
+    intent.when(searchUsingCityName: (String cityName) async {
       final result = await openWeatherPollutionInteractor.getPollutionInfo(
-          latitude, longitude);
+          latitude.toString(), longitude.toString());
 
       setState((state) => state.copyWith(openWeatherPollutionInfo: result));
     });

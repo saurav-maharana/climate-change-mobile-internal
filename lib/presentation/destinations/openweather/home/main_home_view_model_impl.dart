@@ -7,7 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../interactor/openweather/openweather_interactor.dart';
 
-String cityName = "";
+String globalCityName = "Pune";
 
 class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
   final OpenWeatherInteractor openWeatherInteractor;
@@ -34,9 +34,9 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
     await GeocodingPlatform.instance
         .placemarkFromCoordinates(latitude, longitude)
         .then((value) {
-      cityName = value[0].subAdministrativeArea!;
+      globalCityName = value[0].subAdministrativeArea!;
     }).then((_) async {
-      final result = await openWeatherInteractor.search(cityName);
+      final result = await openWeatherInteractor.search(globalCityName);
       setState((state) => state.copyWith(currentWeather: result));
     });
   }
@@ -67,6 +67,7 @@ class OpenWeatherViewModelImpl extends OpenWeatherViewModel {
     intent.when(search: (cityName) async {
       final result = await openWeatherInteractor.search(cityName);
       setState((state) => state.copyWith(currentWeather: result));
+      globalCityName = result.cityName;
     });
   }
 }

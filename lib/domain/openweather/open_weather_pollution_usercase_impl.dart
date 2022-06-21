@@ -1,6 +1,7 @@
 import 'package:flutter_template/domain/entity/openweather/pollution_info.dart';
 import 'package:flutter_template/domain/openweather/open_weather_pollution_usecase.dart';
 import 'package:flutter_template/repository/openweather/open_weather_pollution_repository.dart';
+import 'package:tuple/tuple.dart';
 
 class OpenWeatherPollutionUsecaseImpl extends OpenWeatherPollutionUseCase {
   final OpenWeatherPollutionRepository openWeatherPollutionRepository;
@@ -10,11 +11,9 @@ class OpenWeatherPollutionUsecaseImpl extends OpenWeatherPollutionUseCase {
   });
 
   @override
-  Future<OpenWeatherPollutionInfo> callInternal(String param) async {
+  Future<OpenWeatherPollutionInfo> callInternal(
+      Tuple2<String, String> param) async {
     return await openWeatherPollutionRepository.getPollutionInfo(
-      "23",
-      "12",
-      // ignore: todo
-    ); // TODO: Remove the hardcoded values
+        param.item1, param.item2);
   }
 }
